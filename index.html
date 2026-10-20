@@ -522,10 +522,11 @@ body.held .jump{opacity:0;transform:translateY(10px);pointer-events:none}
 .panel-nav .panel-body{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 .nav-list{list-style:none;margin:0;padding:0}
 .nav-list li[hidden]{display:none}
-.nav-list button{display:flex;width:100%;align-items:baseline;gap:10px;min-height:54px;
+.nav-list button{display:flex;width:100%;align-items:baseline;gap:12px;min-height:54px;
   padding:8px 0;border:0;border-bottom:1px solid var(--rule-soft);background:transparent;
   color:inherit;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.nav-dot{flex:none;align-self:center;width:7px;height:7px;border-radius:999px;background:transparent}
+.nav-dot{display:inline-block;width:7px;height:7px;border-radius:999px;background:transparent;
+  margin-right:.46em;vertical-align:.14em}
 .nav-name{font-family:var(--serif);font-size:var(--fs-entry);line-height:1.22;
   letter-spacing:var(--track-tight);min-width:0}
 .nav-n{flex:none;font-size:var(--fs-ui);color:var(--brass);font-variant-numeric:tabular-nums}
@@ -876,8 +877,7 @@ const TOC_FLAT = "Sections are set aside while the library is ordered as one run
 function navRow(to, label, group){
   return '<li><button type="button" data-to="' + esc(to) + '"' +
     (group ? ' data-group="' + esc(group) + '"' : "") + ">" +
-    '<i class="nav-dot" aria-hidden="true"></i>' +
-    '<span class="nav-name">' + esc(label) + "</span>" +
+    '<span class="nav-name"><i class="nav-dot" aria-hidden="true"></i>' + esc(label) + "</span>" +
     '<span class="leader"></span>' +
     (group || to === "all-courses" ? '<span class="nav-n"></span>' : "") +
     "</button></li>";
@@ -1413,8 +1413,9 @@ function place(){
   if(id === hereId) return;
   hereId = id;
   const name = sec ? sec.querySelector("h2").textContent : null;
-  $("jump-now").textContent = name || "Contents";
-  // the visible word is where you are; the spoken one also says what it opens
+  // The label stays put. Naming the section made the control as wide as the
+  // longest section name, and it is a door, not a signpost -- the section you
+  // are in is marked inside, where you look for it.
   jump.setAttribute("aria-label", name ? "Contents. You are in " + name : "Contents");
   for(const b of navBtns){
     if(b.dataset.to === id) b.setAttribute("aria-current","true");

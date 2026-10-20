@@ -1,0 +1,709 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.5 system-ui,sans-serif;background:#faf9f7}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>The Course Book</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Archivo:wght@400;500&display=swap">
+<style>
+/* Layout: a bound catalogue &#8212; cover plate, sunk contents page, ruled group openers, large photographic plates each with a scorecard caption beneath. */
+:root{
+  /* Two voices, and only two. The serif is the content: course names, group
+     titles, the editorial note. The sans is the apparatus around it: labels,
+     figures, captions, controls. Nothing on the page uses a third face. */
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+
+  /* One scale. Every size on the page is one of these six steps. */
+  --fs-mark:10.5px;                     /* every uppercase label and mark */
+  --fs-ui:13px;                         /* figures, secondary text, controls */
+  --fs-prose:16px;                      /* serif reading text */
+  --fs-entry:clamp(20px,2.5vw,24px);    /* a name: course, contents line, dek */
+  --fs-feature:clamp(25px,3.2vw,32px);  /* the lead plate's name */
+  --fs-opener:clamp(30px,4.6vw,40px);   /* group openers, drawn monograms */
+  --fs-cover:clamp(46px,10.5vw,96px);   /* the cover, once */
+
+  /* Two trackings out, one in. Nothing is tracked to its own private value. */
+  --track-mark:.16em;                   /* uppercase labels and marks */
+  --track-ui:.08em;                     /* uppercase controls */
+  --track-tight:-.018em;                /* the serif at display sizes */
+
+  --paper:#F7F4ED;
+  --panel:#EBE6D9;
+  --card:#FDFCF8;
+  --ink:#14251B;
+  --ink-soft:#56665A;
+  --rule:#D4CCBA;
+  --rule-soft:#E2DACA;
+  --band:#17382A;
+  --band-ink:#EEEADD;
+  --band-soft:#A9BCAE;
+  --brass:#7E5E22;
+  --brass-bright:#9A7533;
+  --sel-bg:#17382A;
+  --sel-ink:#F3EFE3;
+  --motif:rgba(201,164,94,.15);
+  --lift:0 1px 2px rgba(20,37,27,.05),0 10px 28px -12px rgba(20,37,27,.26);
+  --plate-a:#1C3728;
+  --plate-b:#102017;
+  --bar-h:176px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E120F;
+  --panel:#151A15;
+  --card:#141915;
+  --ink:#E8E4D7;
+  --ink-soft:#9AA69A;
+  --rule:#293129;
+  --rule-soft:#1E251F;
+  --band:#13231A;
+  --band-ink:#E8E4D7;
+  --band-soft:#93A596;
+  --brass:#D4B274;
+  --brass-bright:#E0C28B;
+  --sel-bg:#D4B274;
+  --sel-ink:#111611;
+  --motif:rgba(212,178,116,.13);
+  --lift:0 1px 2px rgba(0,0,0,.5),0 14px 34px -14px rgba(0,0,0,.7);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0E120F;
+  --panel:#151A15;
+  --card:#141915;
+  --ink:#E8E4D7;
+  --ink-soft:#9AA69A;
+  --rule:#293129;
+  --rule-soft:#1E251F;
+  --band:#13231A;
+  --band-ink:#E8E4D7;
+  --band-soft:#93A596;
+  --brass:#D4B274;
+  --brass-bright:#E0C28B;
+  --sel-bg:#D4B274;
+  --sel-ink:#111611;
+  --motif:rgba(212,178,116,.13);
+  --lift:0 1px 2px rgba(0,0,0,.5),0 14px 34px -14px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + var(--bar-h) + 12px);-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:var(--fs-prose);line-height:1.5}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+img{display:block}
+:focus-visible{outline:2px solid var(--brass-bright);outline-offset:3px}
+
+.sheet{max-width:1180px;margin-inline:auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- cover plate ---------- */
+.cover{position:relative;overflow:hidden;background:var(--band);color:var(--band-ink)}
+.cover::before{content:"";position:absolute;inset:-40% -12% -40% 30%;pointer-events:none;
+  background:repeating-radial-gradient(ellipse 62% 40% at 72% 52%,var(--motif) 0 1px,transparent 1px 21px)}
+.cover-in{position:relative;padding-block:clamp(34px,6.2vw,74px)}
+.runhead{display:flex;justify-content:space-between;gap:16px;
+  font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;color:var(--band-soft)}
+.cover h1{font-family:var(--serif);font-weight:400;font-size:var(--fs-cover);
+  line-height:.95;letter-spacing:var(--track-tight);margin-block:clamp(16px,3.4vw,30px) 0}
+.hair{height:1px;background:var(--brass-bright);opacity:.75;margin-block:clamp(18px,3vw,26px) 0;border:0}
+.dek{font-family:var(--serif);font-size:var(--fs-entry);line-height:1.45;max-width:30ch;
+  color:var(--band-ink);margin-top:clamp(16px,2.6vw,22px)}
+.dek em{font-style:italic;color:var(--brass-bright)}
+.legend{display:grid;gap:10px;margin:clamp(20px,3.4vw,30px) 0 0;max-width:72ch}
+.legend>div{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.legend dt{font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;
+  color:var(--brass-bright);white-space:nowrap}
+.legend dd{margin:0;font-size:var(--fs-ui);line-height:1.4;color:var(--band-soft);min-width:0}
+
+/* ---------- sticky bar ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:var(--paper);border-bottom:1px solid var(--rule)}
+.bar-in{padding-block:9px;display:grid;gap:8px}
+.bar-top{display:flex;align-items:center;gap:14px}
+.search{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:9px;height:44px;
+  border-bottom:1px solid var(--rule)}
+.search svg{flex:none;width:16px;height:16px;stroke:var(--ink-soft);fill:none;stroke-width:1.7}
+.search input{flex:1 1 auto;min-width:0;width:100%;height:42px;border:0;background:transparent;
+  color:var(--ink);font:400 var(--fs-prose)/1 var(--sans)}
+.search input::placeholder{color:var(--ink-soft);opacity:.85}
+.search input:focus{outline:0}
+.search:focus-within{border-bottom-color:var(--brass-bright)}
+.status{flex:none;font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;
+  color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* two facets, ruled apart: character above, origin below. Both multi-select. */
+.facets{display:grid;gap:7px}
+.facet{display:flex;align-items:center;gap:11px;min-width:0}
+.facet+.facet{border-top:1px solid var(--rule-soft);padding-top:7px}
+.facet-label{flex:none;width:68px;font-size:var(--fs-mark);letter-spacing:var(--track-mark);
+  text-transform:uppercase;color:var(--brass);line-height:1.2}
+@media (max-width:539px){.facet-label{width:auto;max-width:34px;overflow:hidden}}
+.chips{flex:1 1 auto;min-width:0;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-block:1px;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.chips::-webkit-scrollbar{display:none}
+@media (min-width:860px){.chips{flex-wrap:wrap;overflow:visible}}
+.chip{flex:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 15px;
+  border:1px solid var(--rule);border-radius:999px;background:transparent;color:var(--ink-soft);
+  font:500 var(--fs-ui)/1 var(--sans);letter-spacing:var(--track-ui);text-transform:uppercase;white-space:nowrap;
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* the count rides on the chip's own size, set apart by weight and opacity, not by a face */
+.chip i{font-style:normal;font-weight:400;opacity:.7;font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-ink)}
+.chip[aria-pressed="true"] i{opacity:.75}
+.chip-origin[aria-pressed="true"]{background:transparent;border-color:var(--brass);color:var(--brass)}
+
+.clear{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+  margin-left:auto;border:1px dashed var(--brass);border-radius:999px;background:transparent;
+  color:var(--brass);font:500 var(--fs-ui)/1 var(--sans);letter-spacing:var(--track-ui);text-transform:uppercase;
+  white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.clear i{font-style:normal;line-height:1;opacity:.8}
+.clear[hidden]{display:none}
+.status b{font-weight:500;color:var(--ink)}
+.status .of{opacity:.7}
+
+/* ---------- contents ---------- */
+.contents-wrap{background:var(--panel);border-bottom:1px solid var(--rule)}
+.contents-in{padding-block:clamp(26px,4.4vw,48px)}
+.kicker{font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;color:var(--brass)}
+.toc{list-style:none;margin:14px 0 0;padding:0;columns:2;column-gap:clamp(28px,5vw,64px)}
+@media (max-width:719px){.toc{columns:1}}
+.toc li{break-inside:avoid}
+.toc a{display:flex;align-items:baseline;gap:8px;min-height:50px;padding-block:6px;
+  text-decoration:none;border-bottom:1px solid var(--rule-soft)}
+.toc-name{font-family:var(--serif);font-size:var(--fs-entry);line-height:1.25;letter-spacing:var(--track-tight)}
+.leader{flex:1 1 auto;min-width:14px;align-self:flex-end;margin-bottom:.42em;
+  border-bottom:1px dotted var(--rule)}
+.toc-n{flex:none;font-size:var(--fs-ui);color:var(--brass);
+  font-variant-numeric:tabular-nums}
+.toc a[aria-disabled="true"]{opacity:.35;pointer-events:none}
+
+/* ---------- group openers ---------- */
+.group{margin-top:clamp(40px,6vw,76px)}
+.opener{border-top:2px solid var(--ink);padding-top:12px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.opener h2{font-family:var(--serif);font-size:var(--fs-opener);line-height:1.08;letter-spacing:var(--track-tight)}
+.opener-n{font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;
+  color:var(--brass);font-variant-numeric:tabular-nums;white-space:nowrap}
+.gloss{font-family:var(--serif);font-size:var(--fs-prose);line-height:1.45;
+  color:var(--ink-soft);max-width:58ch;margin-top:9px}
+
+/* ---------- card grid ---------- */
+/* align-items defaults to stretch: every card in a row is the same height. */
+.rack{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));
+  gap:clamp(20px,2.6vw,34px);margin-top:clamp(20px,2.8vw,32px)}
+
+.course{display:flex;flex-direction:column;height:100%;background:var(--card);
+  border:1px solid var(--rule);border-radius:2px;overflow:hidden;min-width:0}
+.shot{position:relative;flex:0 0 auto;aspect-ratio:800/450;max-width:100%;overflow:hidden;background:var(--plate-b)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.plate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:6px;background:linear-gradient(165deg,var(--plate-a),var(--plate-b))}
+.plate::before{content:"";position:absolute;inset:0;
+  background:repeating-radial-gradient(ellipse 48% 58% at 50% 56%,rgba(201,164,94,.17) 0 1px,transparent 1px 15px)}
+.plate b{position:relative;font-family:var(--serif);font-weight:400;font-size:var(--fs-opener);
+  line-height:1;letter-spacing:var(--track-ui);color:rgba(214,182,123,.82)}
+.plate span{position:relative;font-size:var(--fs-mark);letter-spacing:var(--track-mark);
+  text-transform:uppercase;color:rgba(214,182,123,.5)}
+
+/* caption takes the remaining height, so the footer pins to the bottom of every card */
+.caption{flex:1 1 auto;display:flex;flex-direction:column;gap:9px;padding:16px 17px 18px;min-width:0}
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.cname{font-family:var(--serif);font-size:var(--fs-entry);line-height:1.14;letter-spacing:var(--track-tight)}
+.tags{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-top:4px}
+.tag{font-size:var(--fs-mark);letter-spacing:var(--track-mark);
+  text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--rule);
+  border-radius:999px;padding:4px 8px;white-space:nowrap}
+.course.hit .tag{color:var(--brass);border-color:var(--brass)}
+/* origin is context, not a headline: no rule round it, and quieter ink */
+.tag-origin{font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;
+  color:var(--ink-soft);opacity:.62;white-space:nowrap;padding-right:1px}
+
+/* par and yardage: the line a golfer reads first */
+/* the figures that line up down a column of cards: tabular, so they do line up */
+.scard{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 2px;
+  font-size:var(--fs-ui);line-height:1.3;color:var(--ink);font-variant-numeric:tabular-nums}
+.scard .par{color:var(--brass);font-weight:500}
+.scard .tee{color:var(--ink-soft)}
+.meta{font-size:var(--fs-ui);color:var(--ink-soft);line-height:1.35}
+.meta .sep,.scard .sep{opacity:.5;padding-inline:5px}
+
+.plays{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 9px;
+  border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft);padding-block:9px}
+.plays-label{flex:none;font-size:var(--fs-mark);letter-spacing:var(--track-mark);
+  text-transform:uppercase;color:var(--brass)}
+.seg{font-size:var(--fs-ui);color:var(--ink);line-height:1.3;font-variant-numeric:tabular-nums}
+.seg+.seg{border-left:1px solid var(--rule);padding-left:9px}
+.seg-stimp{color:var(--brass);font-weight:500;font-variant-numeric:tabular-nums}
+
+.note{font-family:var(--serif);font-size:var(--fs-prose);line-height:1.5;max-width:62ch}
+.note b{font-weight:600}
+.foot{display:flex;flex-direction:column;gap:3px;margin-top:auto;padding-top:4px}
+.alias,.by{font-size:var(--fs-ui);color:var(--ink-soft);line-height:1.35;min-width:0;overflow-wrap:anywhere}
+.alias b{font-weight:500;color:var(--brass)}
+
+/* a ruled break inside a rack: the five above it play as proper golf */
+.turn{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin-block:2px}
+.turn::before,.turn::after{content:"";flex:1 1 auto;height:1px;background:var(--brass);opacity:.4}
+.turn span{flex:0 1 auto;min-width:0;font-size:var(--fs-mark);letter-spacing:var(--track-mark);
+  line-height:1.5;text-transform:uppercase;color:var(--brass);text-align:center}
+@media (max-width:539px){.turn::before,.turn::after{flex:0 0 14px}}
+.turn[hidden]{display:none}
+
+/* lead plate: first entry in each section, given the full measure */
+.course.lead{grid-column:1/-1;border:0;border-radius:3px;box-shadow:var(--lift);height:auto}
+@media (min-width:760px){
+  .course.lead{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);align-items:stretch}
+  .course.lead .shot{aspect-ratio:auto;height:100%;min-height:330px}
+  .course.lead .caption{gap:11px;padding:clamp(20px,2.4vw,30px)}
+  .course.lead .cname{font-size:var(--fs-feature)}
+}
+/* must come after the display rules above, or a filtered-out card still shows */
+.course[hidden],.course.lead[hidden]{display:none}
+
+@media (hover:hover){
+  .toc a:hover .toc-name{color:var(--brass)}
+  .chip:hover{border-color:var(--ink-soft);color:var(--ink)}
+  .chip[aria-pressed="true"]:hover{color:var(--sel-ink)}
+}
+
+/* ---------- empty state ---------- */
+.void{margin-top:clamp(34px,5vw,56px);border:1px solid var(--rule);border-radius:2px;
+  background:var(--card);padding:clamp(26px,4vw,44px);text-align:center;display:grid;gap:14px;justify-items:center}
+.void[hidden]{display:none}
+.void p{font-family:var(--serif);font-size:var(--fs-entry)}
+.void button{min-height:44px;padding:0 20px;border:1px solid var(--rule);border-radius:999px;
+  background:transparent;color:var(--ink);font:500 var(--fs-ui)/1 var(--sans);letter-spacing:var(--track-ui);
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- jump button ---------- */
+.jump{position:fixed;z-index:30;
+  right:calc(16px + env(safe-area-inset-right,0px));
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  min-height:48px;padding:0 20px;border:0;border-radius:999px;
+  background:var(--sel-bg);color:var(--sel-ink);box-shadow:0 8px 24px -8px rgba(0,0,0,.45);
+  font:500 var(--fs-ui)/1 var(--sans);letter-spacing:var(--track-ui);text-transform:uppercase;cursor:pointer;
+  opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .22s,transform .22s}
+.jump.on{opacity:1;transform:none;pointer-events:auto}
+
+/* ---------- colophon ---------- */
+.colophon{margin-top:clamp(48px,7vw,88px);border-top:1px solid var(--rule)}
+.colophon-in{padding-block:22px calc(34px + env(safe-area-inset-bottom,0px));display:flex;
+  flex-wrap:wrap;gap:6px 18px;justify-content:space-between;
+  font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;color:var(--ink-soft)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+/* ---------- print: A4, light palette forced, photographs kept ---------- */
+@media print{
+  @page{size:A4;margin:14mm 13mm}
+  /* force the light tokens whatever the screen was set to, and keep the ink */
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+    --paper:#FFFFFF;
+    --panel:#F2EEE3;
+    --card:#FFFFFF;
+    --ink:#14251B;
+    --ink-soft:#4E5E53;
+    --rule:#C8C0AE;
+    --rule-soft:#DED6C5;
+    --band:#17382A;
+    --band-ink:#F2EFE4;
+    --band-soft:#C3D0C5;
+    --brass:#6F5119;
+    --brass-bright:#9A7533;
+    --motif:rgba(201,164,94,.22);
+    --lift:none;
+    --plate-a:#1C3728;
+    --plate-b:#102017;
+    --bar-h:0px;
+    color-scheme:light;
+    /* the one scale again, in points, so every rule above follows without being restated */
+    --fs-mark:7.5pt;
+    --fs-ui:8.5pt;
+    --fs-prose:10pt;
+    --fs-entry:14pt;
+    --fs-feature:17pt;
+    --fs-opener:21pt;
+    --fs-cover:46pt;
+  }
+  *,*::before,*::after{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    box-shadow:none!important;transition:none!important}
+  html{scroll-padding-top:0}
+  body{background:#fff;font-size:var(--fs-prose);line-height:1.42}
+
+  /* the apparatus of a web page goes away; the book stays */
+  .bar,.jump,.void,.turn{display:none!important}
+
+  .sheet{max-width:none;margin-inline:0;padding-inline:0}
+  /* the cover and contents are tinted blocks: they keep an inner gutter */
+  .cover-in,.contents-in{padding-inline:11mm}
+  .cover{break-after:page}
+  .cover-in{padding-block:22mm 18mm}
+  .dek{max-width:32ch}
+  .contents-wrap{border-bottom:0;break-after:page}
+  .contents-in{padding-block:11mm}
+  .toc a{min-height:0;padding-block:3pt}
+
+  .group{margin-top:10mm;break-before:auto}
+  .group:first-child{margin-top:0}
+  .opener{break-after:avoid;break-inside:avoid;padding-top:5pt}
+  .gloss{break-after:avoid;margin-top:4pt}
+  .rack{grid-template-columns:repeat(2,minmax(0,1fr));gap:7mm;margin-top:6mm}
+
+  .course{break-inside:avoid;page-break-inside:avoid;height:auto;
+    border:1px solid var(--rule);background:#fff}
+  .shot{break-inside:avoid}
+  .shot img{max-width:100%}
+  .caption{padding:9pt 10pt 10pt;gap:6pt}
+  .note{max-width:none}
+  .foot{margin-top:8pt}
+
+  /* the full-measure lead plate stays two-up but must not straddle a page */
+  .course.lead{grid-column:1/-1;break-inside:avoid;border:1px solid var(--rule)}
+  .course.lead .shot{min-height:0;aspect-ratio:800/450}
+
+  .colophon{margin-top:10mm;break-inside:avoid}
+  .colophon-in{padding-block:6pt 0}
+}
+</style>
+
+<header class="cover">
+  <div class="sheet cover-in">
+    <p class="runhead"><span>GSPro library</span><span>New Delhi</span></p>
+    <h1>The Course Book</h1>
+    <hr class="hair">
+    <p class="dek" id="dek"><em>Pick one.</em></p>
+    <dl class="legend">
+      <div><dt>Par &middot; yardage</dt><dd>the card off the back tees, where the builder published one</dd></div>
+      <div><dt>Plays like</dt><dd>the wind, firmness and green speed the course's designer set as its defaults</dd></div>
+      <div><dt>Origin</dt><dd>whether the golf course exists &mdash; most of the library is real ground</dd></div>
+      <div><dt>Search GSPro for</dt><dd>what to type in GSPro when the course is listed there under a different name</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="sheet bar-in">
+    <div class="bar-top">
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L21 21"></path></svg>
+        <input id="q" type="search" autocomplete="off" placeholder="Course, town or builder" aria-label="Search by course name, GSPro name, location or builder">
+      </label>
+      <p class="status" id="status" aria-live="polite" role="status"></p>
+    </div>
+    <div class="facets">
+      <div class="facet">
+        <span class="facet-label">Character</span>
+        <div class="chips" id="chips-type" role="group" aria-label="Filter by playing character; several at once"></div>
+      </div>
+      <div class="facet">
+        <span class="facet-label">Origin</span>
+        <div class="chips" id="chips-origin" role="group" aria-label="Filter by origin; real courses or invented"></div>
+        <button class="clear" id="clear" type="button" hidden>Clear all<i aria-hidden="true">&times;</i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="contents-wrap" id="contents">
+    <div class="sheet contents-in">
+      <p class="kicker">Contents</p>
+      <ol class="toc" id="toc"></ol>
+    </div>
+  </section>
+  <div class="sheet" id="groups"></div>
+</main>
+
+<footer class="colophon">
+  <div class="sheet colophon-in">
+    <span id="colophon-count"></span>
+    <span>The Course Book</span>
+  </div>
+</footer>
+
+<button class="jump" id="jump" type="button">Contents</button>
+
+<script>
+const COURSES = [{"group":"Championship courses","name":"Augusta National","gspro":"Georgia Golf Club","image":"course-images/s347.jpg","location":"Augusta, Georgia","designer":"Tekbud","yardage":"7,580","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 13","note":"The Masters. Jones and MacKenzie, 1932.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Quail Hollow Club","gspro":"Quail Hollow Club Championship Edition","image":"course-images/s299.jpg","location":"Charlotte, North Carolina","designer":"CE.Simgolf","yardage":"7,657","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 12\u201313","note":"PGA Championship 2017 and 2025. The last three holes are called the Green Mile.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Championship courses","name":"TPC Sawgrass","gspro":"DPC Sodgrass","image":"course-images/s1025.jpg","location":"Ponte Vedra Beach, Florida","designer":"DPR-OPCD","yardage":"7,239","plays_like":"No wind \u00b7 Firm fairways and greens \u00b7 Stimp 11\u201313","note":"The island green 17th. Five tee sets down to 5,382 \u2014 good for guests.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"TPC Scottsdale (Stadium)","gspro":"DPC Scottsdale","image":"course-images/s1358.jpg","location":"Scottsdale, Arizona","designer":"runpuddrun","yardage":"7,302","plays_like":"Calm \u00b7 Firm fairways","note":"The 16th amphitheatre, with a crowd that cheers and boos.","type":"Desert","par":71,"origin":"Real course"},{"group":"Championship courses","name":"East Lake Golf Club","gspro":"East Lake Golf Club","image":"course-images/s77.jpg","location":"Atlanta, Georgia","designer":"Tekbud","yardage":"7,348","plays_like":"Firm fairways and greens \u00b7 Stimp 13","note":"The Tour Championship. Stimp 13 is the designer's own call.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Riviera Country Club","gspro":"Riviera","image":"course-images/s3329.jpg","location":"Pacific Palisades, California","designer":"bortimus1","yardage":"7,382","plays_like":"No wind \u00b7 Normal fairways and greens","note":"The Genesis. George Thomas, 1926 \u2014 the par-3 6th has a bunker inside the green.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Muirfield Village","gspro":"Muirfield Village Golf Club","image":"course-images/s915.jpg","location":"Dublin, Ohio","designer":"pakman","yardage":"7,378","plays_like":"No wind \u00b7 Normal fairways and greens","note":"Nicklaus's own course, host of the Memorial. Five tee sets.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Bay Hill Club","gspro":"Bay Hill","image":"course-images/s344.jpg","location":"Orlando, Florida","designer":"Pakman","yardage":"7,385","plays_like":"No wind \u00b7 Normal fairways and greens","note":"Arnold Palmer's home course. The water-guarded 18th is the signature.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Harbour Town Golf Links","gspro":"Harbour Town Golf Links at Sea Pines","image":"course-images/s849.jpg","location":"Hilton Head, South Carolina","designer":"pakman, JGixrod3","yardage":"7,089","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10","note":"Tiny greens and the lighthouse 18th. Leave the driver in the bag.","type":"Coastal","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Sahalee Country Club","gspro":"Sahalee Championship Course","image":"course-images/s2917.jpg","location":"Sammamish, Washington","designer":"Virtualgolfer65","yardage":"7,031","plays_like":"","note":"Tree-lined and narrow \u2014 the corridors punish a loose driver. Beta build, the only one available.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Druids Glen","gspro":"Druids Glen","image":"course-images/s2363.jpg","location":"Wicklow, Ireland","designer":"Tsquared","yardage":"6,810","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Irish Open venue. Six tee sets including a junior and a par-3 route \u2014 the friendliest course we own.","type":"Heathland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Royal Portrush (Dunluce)","gspro":"DPC Portrush","image":"course-images/s2555.jpg","location":"Portrush, Northern Ireland","designer":"Greg Mc / BLRK / runpuddrun","yardage":"7,374","plays_like":"Breezy \u00b7 Links fairways and greens","note":"The 2019 and 2025 Open venue.","type":"Links","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Whistling Straits","gspro":"DPC Lake Michigan","image":"course-images/s2034.jpg","location":"Kohler, Wisconsin","designer":"Tekbud","yardage":"7,629","plays_like":"Breezy \u00b7 Firm fairways \u00b7 Stimp 12\u201313","note":"967 bunkers on the real thing. Ryder Cup 2021.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Oakmont","gspro":"Oakmont CC","image":"course-images/s674.jpg","location":"Oakmont, Pennsylvania","designer":"Adamtc4","yardage":"7,175","plays_like":"Breezy \u00b7 Firm fairways and greens \u00b7 Stimp 10\u201313","note":"The hardest championship course in America. Church Pew bunkers, 2025 US Open.","type":"Parkland","par":70,"origin":"Real course"},{"group":"Championship courses","name":"Merion (East)","gspro":"Merion Golf Club","image":"course-images/fly_merion.jpg","location":"Ardmore, Pennsylvania","designer":"Soupy","yardage":"6,983","plays_like":"","note":"Wicker baskets instead of flags. Jones completed the 1930 Grand Slam here.","type":"Parkland","par":70,"origin":"Real course"},{"group":"Championship courses","name":"The Olympic Club","gspro":"Olympic Club","image":"course-images/s1402.jpg","location":"San Francisco, California","designer":"Tekbud","yardage":"7,094","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Five US Opens and five upsets. Every fairway slopes the wrong way.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Oakland Hills (South)","gspro":"Oakland Hills - South Course","image":"course-images/s2339.jpg","location":"Bloomfield Hills, Michigan","designer":"Tsquared","yardage":"7,487","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"\u201cThe Monster\u201d, as Hogan named it. Six majors.","type":"Heathland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Torrey Pines (South)","gspro":"Torrey South","image":"course-images/s2.jpg","location":"La Jolla, California","designer":"Tsquared","yardage":"7,821","plays_like":"Calm \u00b7 Firm fairways \u00b7 Normal greens","note":"Tiger's 2008 US Open on one leg. At 7,821 the longest card in the catalogue.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Torrey Pines (North)","gspro":"Torrey Pines - North Course","image":"course-images/s2871.jpg","location":"La Jolla, California","designer":"Tsquared","yardage":"7,221","plays_like":"Calm \u00b7 Firm fairways \u00b7 Normal greens \u00b7 Stimp 10\u201313","note":"The friendlier of the two, on the same Pacific cliffs.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Seminole","gspro":"Seminole Golf Club","image":"course-images/s698.jpg","location":"Juno Beach, Florida","designer":"Tekbud","yardage":"7,118","plays_like":"Breezy \u00b7 Hard fairways and greens \u00b7 Stimp 12\u201313","note":"Donald Ross, 1929. Hogan's warm-up course, and almost impossible to get on.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Adare Manor","gspro":"Adare Manor Golf Club","image":"course-images/s2927.jpg","location":"Limerick, Ireland","designer":"CDrum","yardage":"7,243","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"The 2027 Ryder Cup venue.","type":"Links","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Royal Troon","gspro":"DPC Royal noorT","image":"course-images/s1795.jpg","location":"Troon, Scotland","designer":"Tsquared","yardage":"7,228","plays_like":"Gusty \u00b7 Links fairways \u00b7 Normal greens","note":"An Open venue, under an alias \u2014 read the name backwards. The Postage Stamp 8th.","type":"Links","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Pinehurst No. 2","gspro":"Pinehurst 2","image":"course-images/g_pinehurst2_0_2_gsp.jpg","location":"Pinehurst, North Carolina","designer":"Cintigolfer, Tekbud","yardage":"7,541","plays_like":"","note":"Ross's crowned greens. Nothing stays on them.","type":"Heathland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Royal Dornoch","gspro":"Royal Dornoch","image":"course-images/fly_dornoch.jpg","location":"Dornoch, Scotland","designer":"Tekbud","yardage":"6,741","plays_like":"Breezy \u00b7 Links fairways and greens \u00b7 Stimp 10\u201313","note":"Far north in the Highlands, and on every world top-five list.","type":"Links","par":70,"origin":"Real course"},{"group":"Championship courses","name":"Royal Melbourne","gspro":"Royal Melbourne Country Club","image":"course-images/fly_melbourne.jpg","location":"Melbourne, Australia","designer":"Tekbud","yardage":"6,619","plays_like":"No wind \u00b7 Normal fairways and greens","note":"MacKenzie's sandbelt masterpiece.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Firestone Country Club","gspro":"Firestone Country Club","image":"course-images/g_firestone_gsp.jpg","location":"Akron, Ohio","designer":"Bomber Golf Studios","yardage":"7,417","plays_like":"","note":"The old World Series of Golf, and three PGA Championships. Home of the Bridgestone Senior Players.","type":"Parkland","par":70,"origin":"Real course"},{"group":"Championship courses","name":"Pine Needles","gspro":"Pine Needles GC","image":"course-images/s1035.jpg","location":"Southern Pines, North Carolina","designer":"runpuddrun","yardage":"6,781","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Donald Ross. Four US Women's Opens.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Sea Island (Seaside)","gspro":"Sea Island Seaside Course","image":"course-images/s887.jpg","location":"St Simons Island, Georgia","designer":"JPruitt10","yardage":"6,970","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 11\u201313","note":"The RSM Classic, and the best of the three Sea Island courses.","type":"Coastal","par":70,"origin":"Real course"},{"group":"Championship courses","name":"Pelican Golf Club","gspro":"Pelican Golf Club","image":"course-images/s1632.jpg","location":"Belleair, Florida","designer":"amace","yardage":"6,936","plays_like":"Breezy \u00b7 Firm fairways and greens","note":"The LPGA's ANNIKA. Wide fairways, and that is where the generosity ends.","type":"Parkland","par":70,"origin":"Real course"},{"group":"Championship courses","name":"Innisbrook (Copperhead)","gspro":"Copperhead CC","image":"course-images/s61.jpg","location":"Palm Harbor, Florida","designer":"1970kaustin","yardage":"7,285","plays_like":"Normal fairways and greens \u00b7 Stimp 11\u201313","note":"The Valspar. The closing Snake Pit is three of the hardest holes on tour.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Memorial Park","gspro":"Memorial Park Golf Course","image":"course-images/s2458.jpg","location":"Houston, Texas","designer":"CDrum","yardage":"7,286","plays_like":"No wind \u00b7 Normal fairways and greens","note":"A municipal course that hosts the Houston Open. Hanse rebuild.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"The Dunes Club","gspro":"The Dunes Golf and Beach Club","image":"course-images/s962.jpg","location":"Myrtle Beach, South Carolina","designer":"JPruitt10","yardage":"7,335","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 11\u201313","note":"Robert Trent Jones Sr, 1949. The 13th is a 600-yard dogleg round a lake.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Championship courses","name":"RTJ Grand National (Lake)","gspro":"RTJ Grand National (Lake Course)","image":"course-images/s2743.jpg","location":"Opelika, Alabama","designer":"1970kaustin","yardage":"7,368","plays_like":"Normal fairways and greens \u00b7 Stimp 11\u201313","note":"Robert Trent Jones Trail. Thirty-two of its holes touch water.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Hamilton G&CC","gspro":"Hamilton Golf & Country Club","image":"course-images/s1646.jpg","location":"Ancaster, Ontario","designer":"Tsquared","yardage":"6,836","plays_like":"Firm fairways \u00b7 Normal greens","note":"The Canadian Open. Harry Colt, 1916.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Championship courses","name":"Silverado (North)","gspro":"Silverado Resort & Spa - North","image":"course-images/g_silverado_north_gsp.jpg","location":"Napa, California","designer":"Pakman","yardage":"7,173","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Napa Valley. The old Fortinet Championship.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Ritz-Carlton Grande Lakes","gspro":"Ritz-Carlton Golf Club Grande Lakes","image":"course-images/s1893.jpg","location":"Orlando, Florida","designer":"amace","yardage":"7,065","plays_like":"Breezy \u00b7 Normal fairways and greens","note":"Greg Norman design, wetlands throughout.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Waialae Country Club","gspro":"Waialae","image":"course-images/s1746.jpg","location":"Honolulu, Hawaii","designer":"RustyDave / JGixrod","yardage":"6,941","plays_like":"No wind \u00b7 Normal fairways and greens","note":"The Sony Open. Flat and palm-lined, with a junior tee at 3,673.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Championship courses","name":"Colonial Country Club","gspro":"Colonial Country Club","image":"course-images/s3385.jpg","location":"Fort Worth, Texas","designer":"Bortimus","yardage":"7,120","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Hogan's Alley \u2014 the purest ball-striking test on tour.","type":"Parkland","par":70,"origin":"Real course"},{"group":"Great courses","name":"Cape Kidnappers","gspro":"Cape Kidnappers","image":"course-images/s2622.jpg","location":"Hawke's Bay, New Zealand","designer":"Pob16","yardage":"7,129","plays_like":"","note":"Fingers of fairway running out to 140 m cliffs. Doak's most photographed work.","type":"Coastal","par":71,"origin":"Real course"},{"group":"Great courses","name":"Cabot Cliffs","gspro":"Cabot Cliffs","image":"course-images/g_cabotcliffs_gsp.jpg","location":"Cape Breton, Nova Scotia","designer":"Tekbud","yardage":"6,692","plays_like":"","note":"Coore and Crenshaw on the Cape Breton clifftops.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Old Head Golf Links","gspro":"Old Head Golf Links","image":"course-images/g_oldheadbgs_gsp.jpg","location":"Kinsale, Ireland","designer":"Bomber Golf Studios","yardage":"7,186","plays_like":"","note":"On a headland running two miles out into the Atlantic off County Cork.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"Fishers Island Club","gspro":"Fishers Island Club","image":"course-images/s785.jpg","location":"Fishers Island, New York","designer":"Tekbud","yardage":"6,592","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10","note":"Seth Raynor, 1926. World top ten, and almost nobody gets to play it.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"The National (Old)","gspro":"The National Old Course","image":"course-images/s2334.jpg","location":"Cape Schanck, Australia","designer":"Pob16","yardage":"6,886","plays_like":"Breezy \u00b7 Firm fairways \u00b7 Normal greens","note":"Severe elevation on the Mornington Peninsula, and a brutal wind off Bass Strait.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"Barnbougle Dunes","gspro":"Barnbougle Dunes","image":"course-images/g_barnbougledunes_gsp.jpg","location":"Bridport, Tasmania","designer":"Robotobot","yardage":"6,727","plays_like":"","note":"Tom Doak and Mike Clayton on Tasmania's north-east coast. Barnbougle's original course, modelled on Scottish and Irish links.","type":"Links","par":71,"origin":"Real course"},{"group":"Great courses","name":"Barnbougle Lost Farm","gspro":"Barnbougle Lost Farm","image":"course-images/g_lostfarm_gsp.jpg","location":"Bridport, Tasmania","designer":"Robotobot","yardage":"6,843","plays_like":"","note":"Bill Coore's companion to Barnbougle Dunes, along the coast and the Forester River.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Cape Wickham Links","gspro":"Cape Wickham Links","image":"course-images/g_capewickhamlinks_gsp.jpg","location":"King Island, Tasmania","designer":"Robotobot","yardage":"6,656","plays_like":"","note":"King Island's north-west coast. Eight holes play right along the shoreline, with the sea in view from every hole.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Streamsong Black","gspro":"Streamsong Black","image":"course-images/s1306.jpg","location":"Bowling Green, Florida","designer":"Adamtc4","yardage":"7,362","plays_like":"Breezy \u00b7 Links fairways and greens \u00b7 Stimp 11\u201312","note":"Gil Hanse on a reclaimed phosphate mine. Enormous greens, generous off the tee.","type":"Links","par":73,"origin":"Real course"},{"group":"Great courses","name":"Streamsong Red","gspro":"Streamsong Red","image":"course-images/g_streamsong_gsp.jpg","location":"Bowling Green, Florida","designer":"Adamtc4","yardage":"7,096","plays_like":"","note":"Coore and Crenshaw, through old sand dunes and lakes. Part of the Streamsong trilogy.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Streamsong Blue","gspro":"Streamsong Blue","image":"course-images/g_streamsongblue_gsp.jpg","location":"Bowling Green, Florida","designer":"Adamtc4","yardage":"7,312","plays_like":"","note":"Tom Doak's third of the trilogy: big elevation changes, wild grasses and huge bunkers off the dunes.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Lofoten Links","gspro":"Norwegian Links","image":"course-images/s2055.jpg","location":"Lofoten, Norway","designer":"Greg McDonald","yardage":"6,428","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201312","note":"Arctic coastline under the midnight sun. One of the best-looking courses in GSPro.","type":"Coastal","par":71,"origin":"Real course"},{"group":"Great courses","name":"Lofoten Links (Northern Lights)","gspro":"Norwegian Lights","image":"course-images/g_norwegian_gsp.jpg","location":"Lofoten, Norway","designer":"Greg McDonald","yardage":"6,429","plays_like":"","note":"The same course as Norwegian Links, under an aurora sky. <b>Very GPU-heavy</b>: reduce draw distance.","type":"Coastal","par":71,"origin":"Real course"},{"group":"Great courses","name":"Greywolf","gspro":"Greywolf Golf Course","image":"course-images/s1374.jpg","location":"Panorama, British Columbia","designer":"Tsquared","yardage":"7,052","plays_like":"Normal fairways and greens \u00b7 Stimp 10\u201313","note":"The Cliffhanger 6th plays over a gorge. Junior tee at 3,645.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"Golf Club Davos","gspro":"Swiss Alpine Valley","image":"course-images/s1863.jpg","location":"Davos, Switzerland","designer":"Greg McDonald","yardage":"6,410","plays_like":"Firm greens","note":"1,560 m up in the Alps \u2014 expect carries you have never seen.","type":"Mountain","par":71,"origin":"Real course"},{"group":"Great courses","name":"Coeur d'Alene National Reserve","gspro":"CDA National Reserve","image":"course-images/s3200.jpg","location":"Coeur d'Alene, Idaho","designer":"JPruitt10","yardage":"7,265","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Mountain parkland through pine. Scott Miller design.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"Revelstoke","gspro":"Revelstoke Golf Club","image":"course-images/s850.jpg","location":"Revelstoke, British Columbia","designer":"RustyDave / JGixrod3","yardage":"6,536","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10","note":"Columbia River valley, ringed by the Monashees. Short and friendly.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"The Idaho Club","gspro":"The Idaho Club","image":"course-images/g_the_idaho_club_gsp.jpg","location":"Sandpoint, Idaho","designer":"Ptoad","yardage":"7,012","plays_like":"","note":"Jack Nicklaus Signature course among the Pack River wetlands, under Moose Mountain.","type":"Mountain","par":70,"origin":"Real course"},{"group":"Great courses","name":"The Sanctuary","gspro":"The Sanctuary","image":"course-images/g_sanctuary_v1_gsp.jpg","location":"Sedalia, Colorado","designer":"Mashie","yardage":"6,945","plays_like":"","note":"Invitation and charity days only. Elevated tees, towering pines, Pikes Peak in view. Not the Star Wars one.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"The Reserve at Moonlight Basin","gspro":"The Reserve at Moonlight Basin","image":"course-images/s1717.jpg","location":"Big Sky, Montana","designer":"Indyscott","yardage":"8,002","plays_like":"Breezy \u00b7 Firm fairways \u00b7 Normal greens \u00b7 Stimp 13","note":"8,002 yards off the back, because it sits at 2,100 m.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"Paradise Canyon","gspro":"Paradise Canyon Country Club","image":"course-images/s2912.jpg","location":"Lethbridge, Alberta","designer":"Tsquared & Greg McDonald","yardage":"6,855","plays_like":"Breezy \u00b7 Firm fairways and greens","note":"Coulee country \u2014 holes cut into river canyon walls.","type":"Mountain","par":71,"origin":"Real course"},{"group":"Great courses","name":"The Golf Club at Black Rock","gspro":"The Golf Club at Black Rock","image":"course-images/s1027.jpg","location":"Coeur d'Alene, Idaho","designer":"Adamtc4","yardage":"7,039","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 11\u201313","note":"Jim Engh. Dramatic to look at; it plays far easier than it looks.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"Black Desert Resort","gspro":"Black Desert Resort","image":"course-images/s2737.jpg","location":"Ivins, Utah","designer":"Greg McDonald","yardage":"7,390","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Fairways laid through black lava rock. A new PGA Tour stop, five tee sets.","type":"Desert","par":72,"origin":"Real course"},{"group":"Great courses","name":"Whisper Rock (Upper)","gspro":"Whisper Rock (Upper Course)","image":"course-images/s2041.jpg","location":"Scottsdale, Arizona","designer":"rdeyer","yardage":"7,483","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Phil Mickelson's design. Wide, but the desert is unplayable.","type":"Desert","par":72,"origin":"Real course"},{"group":"Great courses","name":"Payne's Valley","gspro":"Paynes Valley","image":"course-images/s573.jpg","location":"Big Cedar, Missouri","designer":"runpuddrun","yardage":"7,376","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Tiger's first public design. Six tee sets. The 19th Hole is its own course in the list.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Great courses","name":"Ozarks National","gspro":"Ozarks National Golf Course","image":"course-images/g_ozarks_national_gsp.jpg","location":"Hollister, Missouri","designer":"RBHLAD","yardage":"6,910","plays_like":"","note":"Coore and Crenshaw along the Ozark ridges and valleys: big elevation changes, wide fairways, bold bunkering.","type":"Mountain","par":71,"origin":"Real course"},{"group":"Great courses","name":"Bluejack National","gspro":"Bluejack National","image":"course-images/g_bluejack_gsp.jpg","location":"Montgomery, Texas","designer":"chrisnatca","yardage":"7,571","plays_like":"","note":"Tiger Woods design among Texas pines. Wide fairways and an Augusta-inspired look.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Great courses","name":"Kapalua Plantation","gspro":"Kapalua - Plantation Course","image":"course-images/s1324.jpg","location":"Maui, Hawaii","designer":"Masta_Blasta","yardage":"7,620","plays_like":"Normal fairways \u00b7 Soft greens \u00b7 Stimp 12\u201313","note":"The Sentry. Vast corridors and huge downhill slopes \u2014 everyone hits one 350 here.","type":"Tropical","par":73,"origin":"Real course"},{"group":"Great courses","name":"Manele Golf Course","gspro":"Manele Golf Course","image":"course-images/g_manele_golf_course_gsp.jpg","location":"Lanai, Hawaii","designer":"Mseaman, JPruitt10","yardage":"7,042","plays_like":"","note":"Jack Nicklaus, on 200-foot cliffs with the ocean in view from all 18 holes.","type":"Tropical","par":72,"origin":"Real course"},{"group":"Great courses","name":"Ko'olau Golf Club","gspro":"Ko'olau Golf Club","image":"course-images/g_koolau_gsp.jpg","location":"Kaneohe, Hawaii","designer":"Indyscott","yardage":"7,192","plays_like":"","note":"Rainforest at the foot of the Ko'olau Mountains, once rated among the hardest courses in the world (slope over 150). Ravines are the targets.","type":"Tropical","par":72,"origin":"Real course"},{"group":"Great courses","name":"Teeth of the Dog","gspro":"Teeth of the Dog","image":"course-images/g_teethofdogbgs_gsp.jpg","location":"La Romana, Dominican Republic","designer":"Bomber Golf Studios","yardage":"7,619","plays_like":"","note":"Pete Dye's Caribbean masterpiece.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"Pacific Grove Golf Links","gspro":"Pacific Grove Golf Links","image":"course-images/g_pacgrove_gsp_ka.jpg","location":"Pacific Grove, California","designer":"1970kaustin","yardage":"5,733","plays_like":"","note":"\u201cThe poor man's Pebble Beach.\u201d Tree-lined front nine, then a back nine through coastal dunes.","type":"Coastal","par":70,"origin":"Real course"},{"group":"Great courses","name":"The Grove XXIII","gspro":"The Grove XXIII","image":"course-images/s607.jpg","location":"Hobe Sound, Florida","designer":"runpuddrun","yardage":"7,580","plays_like":"Calm \u00b7 Firm fairways \u00b7 Normal greens \u00b7 Stimp 12\u201313","note":"Michael Jordan's private course. Wide off the tee; the greens do the defending.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Royal New Kent","gspro":"Royal New Kent","image":"course-images/s2794.jpg","location":"Providence Forge, Virginia","designer":"CE.Simgolf","yardage":"7,422","plays_like":"Firm fairways \u00b7 Normal greens","note":"Mike Strantz's Irish-links fantasy in Virginia. Six tee sets.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Wynn Golf Club","gspro":"Wynn Golf Club","image":"course-images/s886.jpg","location":"Las Vegas, Nevada","designer":"AllArms","yardage":"6,719","plays_like":"No wind \u00b7 Normal fairways and greens","note":"On the Strip behind the hotel, with the Sphere in the backdrop. All water and angles.","type":"Parkland","par":70,"origin":"Real course"},{"group":"Great courses","name":"Tobacco Road","gspro":"Tobacco Road","image":"course-images/s2278.jpg","location":"Sanford, North Carolina","designer":"CE.Simgolf","yardage":"6,484","plays_like":"No wind \u00b7 Firm greens \u00b7 Stimp 11\u201312","note":"Strantz's masterpiece \u2014 blind shots, huge dunes, and GSPro's only officially licensed release.","type":"Links","par":71,"origin":"Real course"},{"group":"Great courses","name":"Gold Mountain Olympic","gspro":"Gold Mountain Olympic","image":"course-images/s1339.jpg","location":"Bremerton, Washington","designer":"I3I2IAIV","yardage":"6,939","plays_like":"No wind \u00b7 Normal fairways and greens","note":"A municipal that has hosted two USGA national championships.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Great courses","name":"Lethbridge Country Club","gspro":"Lethbridge Country Club","image":"course-images/g_lethbridgecc_gsp.jpg","location":"Lethbridge, Alberta","designer":"DedeDre","yardage":"6,748","plays_like":"","note":"Southern Alberta's private club, founded 1913, in the middle of the city.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Great courses","name":"The Wilds","gspro":"The Wilds","image":"course-images/s3285.jpg","location":"Prior Lake, Minnesota","designer":"CE.Simgolf","yardage":"6,966","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Tom Weiskopf, heathland character. A Tournament version exists too.","type":"Heathland","par":72,"origin":"Real course"},{"group":"Great courses","name":"Sand Hills","gspro":"Sand Hills Golf Club","image":"course-images/s2922.jpg","location":"Mullen, Nebraska","designer":"Tekbud","yardage":"6,966","plays_like":"Breezy \u00b7 Hard fairways and greens","note":"Coore &amp; Crenshaw. Permanently in the world top five, and barely touched by machinery.","type":"Heathland","par":71,"origin":"Real course"},{"group":"Great courses","name":"Old Macdonald","gspro":"Old Macdonald Golf Course","image":"course-images/s1869.jpg","location":"Bandon, Oregon","designer":"Tsquared","yardage":"6,956","plays_like":"Breezy \u00b7 Hard fairways \u00b7 Stimp 10\u201313","note":"Bandon Dunes. Every hole is a template of a famous original.","type":"Coastal","par":71,"origin":"Real course"},{"group":"Great courses","name":"Sand Valley","gspro":"Sand Valley","image":"course-images/s895.jpg","location":"Nekoosa, Wisconsin","designer":"Tekbud","yardage":"6,940","plays_like":"Breezy \u00b7 Hard fairways and greens \u00b7 Stimp 12\u201313","note":"Sand barrens in central Wisconsin.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Mammoth Dunes","gspro":"Mammoth Dunes","image":"course-images/g_mammoth_dunes_gsp.jpg","location":"Nekoosa, Wisconsin","designer":"Tekbud","yardage":"6,993","plays_like":"Breezy \u00b7 Hard fairways and greens \u00b7 Stimp 12\u201313","note":"Sand Valley's wide sibling. <b>Hard to lose a ball \u2014 the one for guests.</b>","type":"Links","par":73,"origin":"Real course"},{"group":"Great courses","name":"Ohoopee Match Club","gspro":"Ohoopee Match Club","image":"course-images/fly_ohoopee.jpg","location":"Cobbtown, Georgia","designer":"runpuddrun","yardage":"7,226","plays_like":"Calm \u00b7 Firm fairways \u00b7 Normal greens \u00b7 Stimp 12\u201313","note":"No tee markers, no par, no scorecard. Match play only.","type":"Desert","par":72,"origin":"Real course"},{"group":"Great courses","name":"Victoria National","gspro":"Victoria National Golf Club","image":"course-images/fly_victoria.jpg","location":"Newburgh, Indiana","designer":"JPruitt10","yardage":"7,252","plays_like":"","note":"A strip mine turned into a top-50 course.","type":"Heathland","par":72,"origin":"Real course"},{"group":"Great courses","name":"Lahontan","gspro":"Lahontan Golf Club","image":"course-images/fly_lahontan.jpg","location":"Truckee, California","designer":"Tekbud","yardage":"7,365","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Lake Tahoe mountain golf at 6,000 ft \u2014 the ball flies.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Great courses","name":"The Ledges","gspro":"The Ledges","image":"course-images/s2009.jpg","location":"Huntsville, Alabama","designer":"CE.Simgolf","yardage":"7,121","plays_like":"Calm \u00b7 Normal fairways \u00b7 Soft greens \u00b7 Stimp 11\u201312","note":"<b>#16 in the all-time GSPro view ranking.</b>","type":"Mountain","par":71,"origin":"Real course"},{"group":"Great courses","name":"Corica Park South","gspro":"Corica Park - South","image":"course-images/s3114.jpg","location":"Alameda, California","designer":"KFG","yardage":"6,864","plays_like":"Calm \u00b7 Links fairways and greens \u00b7 Stimp 13","note":"A municipal rebuilt as a links by Rees Jones. Firm turf, cheap thrills.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"Golf Club of Tennessee","gspro":"The Golf Club of Tennessee","image":"course-images/s3059.jpg","location":"Kingston Springs, Tennessee","designer":"1970kaustin","yardage":"7,155","plays_like":"No wind \u00b7 Normal fairways and greens","note":"Tom Fazio's own favourite of his designs.","type":"Parkland","par":71,"origin":"Real course"},{"group":"Great courses","name":"South Cape Owner's Club","gspro":"South Cape Owners Club","image":"course-images/s3655.jpg","location":"Namhae, South Korea","designer":"Bomber Golf Studios","yardage":"","plays_like":"","note":"Clifftop holes over the Korea Strait. Visually the most extreme course we own.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"Dismal River (White)","gspro":"Dismal River White Course","image":"course-images/s3194.jpg","location":"Mullen, Nebraska","designer":"schling44","yardage":"7,357","plays_like":"Breezy \u00b7 Firm fairways and greens \u00b7 Stimp 10","note":"Tom Doak in the Nebraska Sandhills. Pure ground game.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Geneva National (Palmer)","gspro":"Geneva National - The Palmer Course","image":"course-images/s2879.jpg","location":"Lake Geneva, Wisconsin","designer":"Golfergod1986","yardage":"7,083","plays_like":"","note":"Arnold Palmer layout, five tee sets, lakes on half the holes.","type":"Parkland","par":72,"origin":"Real course"},{"group":"Great courses","name":"Poppy Ridge","gspro":"Poppy Ridge","image":"course-images/s3288.jpg","location":"Livermore, California","designer":"KFG","yardage":"7,292","plays_like":"Breezy \u00b7 Links greens \u00b7 Stimp 13","note":"The NCGA's own course. Rees Jones, treeless and windy.","type":"Links","par":72,"origin":"Real course"},{"group":"Great courses","name":"Waterlefe","gspro":"Waterlefe Golf and River Club","image":"course-images/s2758.jpg","location":"Bradenton, Florida","designer":"CDrum","yardage":"","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Florida water golf along the Manatee River.","type":"Coastal","par":72,"origin":"Real course"},{"group":"Great courses","name":"The Hills","gspro":"The Hills Golf Club","image":"course-images/s3297.jpg","location":"Arrowtown, New Zealand","designer":"Robotobot","yardage":"","plays_like":"Gusty \u00b7 Normal fairways \u00b7 Firm greens \u00b7 Stimp 11\u201313","note":"NZ Open host. Closing in 2026 for a two-year rebuild, so this is the record of it.","type":"Mountain","par":72,"origin":"Real course"},{"group":"Fantasy courses","name":"Whispering Pines","gspro":"Whispering Pines","image":"course-images/s723.jpg","location":"Fictional \u2014 mountain","designer":"OPCD-Sting","yardage":"7,006","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 10","note":"GSPro-exclusive, and the course people name every time somebody asks for the best.","type":"Mountain","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Ashen Cliffs","gspro":"Ashen Cliffs","image":"course-images/s1386.jpg","location":"Fictional \u2014 volcanic","designer":"runpuddrun","yardage":"6,808","plays_like":"Gusty \u00b7 Hard fairways \u00b7 Stimp 12\u201313","note":"Volcanic cliffs. The designer asks for gusty wind and hard ground \u2014 play it as intended.","type":"Links","par":71,"origin":"Invented"},{"group":"Fantasy courses","name":"Tongass National","gspro":"Tongass National","image":"course-images/s1323.jpg","location":"Fictional \u2014 Alaska","designer":"I3I2IAIV","yardage":"6,674","plays_like":"","note":"Alaskan rainforest. A hidden gem the review channels keep pushing.","type":"Coastal","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"The Old Game","gspro":"The Old Game","image":"course-images/s1033.jpg","location":"Fictional \u2014 Scotland","designer":"Carl's Place","yardage":"6,768","plays_like":"","note":"From the SGT room, October 2026: <i>\u201cBest course is currently The Old Game.\u201d</i>","type":"Coastal","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Canyon Run (Champions)","gspro":"Canyon Run - Champions Course","image":"course-images/s3201.jpg","location":"Fictional \u2014 desert","designer":"rdeyer","yardage":"","plays_like":"","note":"The full-length sibling of the Canyon Run par 3.","type":"Desert","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Sanctuary Moon","gspro":"Sanctuary Moon","image":"course-images/s1969.jpg","location":"Endor, Outer Rim","designer":"Greg McDonald & Guy Holman","yardage":"7,254","plays_like":"Calm \u00b7 Normal fairways and greens","note":"<b>The Star Wars course.</b> R2-D2, C-3PO and an Ewok are on it. The most-watched course in GSPro. Search \u201cSanctuary\u201d, not \u201cStar\u201d.","type":"Mountain","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Mos Desertly","gspro":"Mos Desertly","image":"course-images/s1874.jpg","location":"Tatooine","designer":"Guy Holman","yardage":"6,758","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201312","note":"<b>The other Star Wars course.</b> Tatooine, by the same designer \u2014 play the pair back to back.","type":"Desert","par":69,"origin":"Invented"},{"group":"Fantasy courses","name":"Middle Earth","gspro":"Middle Earth GC","image":"course-images/s2129.jpg","location":"Fictional \u2014 Tolkien","designer":"Guy Holman & Greg McDonald","yardage":"6,480","plays_like":"Normal fairways and greens \u00b7 Stimp 11\u201313","note":"Number two on GSPro's 2025 Wrapped. The most elaborate of the fantasy builds.","type":"","par":73,"origin":"Invented"},{"group":"Fantasy courses","name":"Halo","gspro":"Halo","image":"course-images/s2404.jpg","location":"The ringworld","designer":"Blitzking","yardage":"6,921","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Golf on the Halo ringworld.","type":"Coastal","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Stonehenge","gspro":"Stonehenge","image":"course-images/s2499.jpg","location":"Wiltshire, England \u2014 sort of","designer":"Blitzking","yardage":"6,732","plays_like":"Normal fairways and greens \u00b7 Stimp 9\u201313","note":"Golf around the stones.","type":"Mountain","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Isla Nublar Golf Club","gspro":"Isla Nublar Golf Club","image":"course-images/s3143.jpg","location":"Isla Nublar, Costa Rica","designer":"Triple J","yardage":"6,645","plays_like":"No wind \u00b7 Normal fairways and greens","note":"<b>Jurassic Park.</b> Par 70, 6,645 yards \u2014 a proper golf course, not a gimmick.","type":"Tropical","par":70,"origin":"Invented"},{"group":"Fantasy courses","name":"Treasure Island","gspro":"Treasure Island","image":"course-images/s2162.jpg","location":"Fictional","designer":"Blitzking","yardage":"6,879","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Stevenson's island, as a golf course.","type":"Coastal","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"US Top 18","gspro":"Us Top 18","image":"course-images/g_ustop18_gsp.jpg","location":"Fictional \u2014 famous US holes","designer":"ynicol","yardage":"7,207","plays_like":"","note":"Famous holes from American courses stitched into one round. <b>Every hole a talking point</b> \u2014 good for first-timers.","type":"","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Course of the Dead","gspro":"Course of the Dead","image":"course-images/s1226.jpg","location":"Fictional \u2014 horror","designer":"Tekbud","yardage":"7,515","plays_like":"Breezy \u00b7 Firm fairways and greens \u00b7 Stimp 13","note":"7,515 yards of horror. Load it in October.","type":"Parkland","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Scary Acres","gspro":"Scary Acres","image":"course-images/fly_scary.jpg","location":"Fictional \u2014 horror","designer":"runpuddrun / TheGreatBanjini","yardage":"1,237","plays_like":"","note":"The other Halloween course.","type":"","par":27,"origin":"Invented"},{"group":"Fantasy courses","name":"Waterworld","gspro":"Waterworld2","image":"course-images/s2670.jpg","location":"Fictional","designer":"ynicol","yardage":"7,479","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"A par 72 surrounded by water, with fairways and greens six metres above it. The tee shot has to be straight.","type":"Coastal","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"The Globe","gspro":"The Globe","image":"course-images/s2281.jpg","location":"Fictional","designer":"schurlette","yardage":"8,303","plays_like":"No wind \u00b7 Firm fairways \u00b7 Normal greens","note":"<b>8,303 yards.</b> The longest thing in GSPro, by some distance.","type":"","par":73,"origin":"Invented"},{"group":"Fantasy courses","name":"Central Park North","gspro":"Central Park North","image":"course-images/s1612.jpg","location":"New York City","designer":"runpuddrun & rdeyer","yardage":"7,721","plays_like":"Calm \u00b7 Firm fairways \u00b7 Normal greens","note":"<b>Golf through Manhattan.</b> 7,721 yards across Central Park.","type":"Parkland","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Central Park South","gspro":"Central Park South","image":"course-images/s1611.jpg","location":"New York City","designer":"runpuddrun & rdeyer","yardage":"7,384","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 11\u201313","note":"The other half of the park.","type":"Parkland","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Spa-Francorchamps","gspro":"Spa-Francorchamps","image":"course-images/s3398.jpg","location":"Stavelot, Belgium","designer":"PStanley","yardage":"7,187","plays_like":"","note":"<b>Golf around the Formula One circuit.</b> Eau Rouge included.","type":"","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Clarkson's Farm","gspro":"Clarksons Farm","image":"course-images/s20.jpg","location":"Chadlington, England","designer":"Johnmeyer","yardage":"","plays_like":"","note":"<b>Diddly Squat as a golf course.</b> Really an animal target range: play it in On Course Practice mode and try to hit everything.","type":"","par":null,"origin":"Invented"},{"group":"Fantasy courses","name":"Bushwood CC","gspro":"Bushwood CC","image":"course-images/g_bushwood_gsp.jpg","location":"Fictional \u2014 Illinois","designer":"runpuddrun","yardage":"6,710","plays_like":"","note":"<b>The club from <i>Caddyshack</i>.</b>","type":"","par":71,"origin":"Invented"},{"group":"Fantasy courses","name":"GSPro Ballpark","gspro":"GSPro Ballpark","image":"course-images/s1943.jpg","location":"Fictional \u2014 a stadium","designer":"Greg McDonald","yardage":"562","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Golf inside a baseball stadium. Three holes.","type":"","par":9,"origin":"Invented"},{"group":"Fantasy courses","name":"TGL Platform Golf","gspro":"TGL Platform Golf","image":"course-images/s2717.jpg","location":"Palm Beach Gardens, Florida","designer":"Tjak","yardage":"7,343","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 11\u201313","note":"Tiger and Rory's indoor arena league, rebuilt as a course.","type":"Coastal","par":72,"origin":"Invented"},{"group":"Fantasy courses","name":"Riverwalk Skills Challenge","gspro":"Riverwalk Skills Challenge","image":"course-images/s995.jpg","location":"Fictional","designer":"rdeyer & CE.Simgolf","yardage":"12 holes","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10","note":"Not a golf course: twelve skill-challenge holes. Pick your distances and score points for accuracy; Long Drive, Break Glass and Flop Shot games too.","type":"","par":null,"origin":"Invented"},{"group":"Fantasy courses","name":"Twisted Sticks Golf Club","gspro":"Twisted Sticks Golf Club","image":"course-images/s2538.jpg","location":"Newland, North Carolina","designer":"Strong Design Studio","yardage":"6,512","plays_like":"Calm \u00b7 Normal fairways and greens","note":"The full-length sibling \u2014 downloaded by accident, and worth keeping.","type":"Mountain","par":72,"origin":"Invented"},{"group":"Short courses","name":"Top of the Rock","gspro":"Top of the Rock","image":"course-images/s846.jpg","location":"Ridgedale, Missouri","designer":"runpuddrun","yardage":"2,784","plays_like":"Normal fairways and greens \u00b7 Stimp 12\u201313","note":"Jack Nicklaus \u2014 the first par-3 course ever given Signature status, and the best thing here for a visitor.","type":"Parkland","par":54,"origin":"Real course"},{"group":"Short courses","name":"401 Par Golf (Par 3 Course)","gspro":"401 Par Golf, Par 3 Course.","image":"course-images/g_401par3.jpg","location":"Raleigh, North Carolina","designer":"Carl's Place","yardage":"748","plays_like":"","note":"Nine holes of 50 to 115 yards, with 15-inch cups as well as standard ones. Typing \u201c401 Par\u201d is enough.","type":"","par":27,"origin":"Real course"},{"group":"Short courses","name":"Georgia Threes","gspro":"Georgia Threes","image":"course-images/g_georgia_threes_gsp.jpg","location":"Magnolia, Georgia","designer":"DPRoberts","yardage":"1,067","plays_like":"","note":"A little par-3 course, Augusta-style. Not the full Georgia Golf Club.","type":"","par":27,"origin":""},{"group":"Short courses","name":"Lost Island Par 3","gspro":"Lost Island Par 3","image":"course-images/s3302.jpg","location":"Fictional \u2014 tropical","designer":"Carl's Place","yardage":"1,206","plays_like":"","note":"By Carl's Place, who the SGT regulars rate as the best designers working in GSPro.","type":"Tropical","par":27,"origin":"Invented"},{"group":"Short courses","name":"Payne's Valley 19th","gspro":"Paynes Valley 19th","image":"course-images/g_paynes_valley_19th.jpg","location":"Big Cedar, Missouri","designer":"runpuddrun","yardage":"","plays_like":"Calm \u00b7 Normal fairways and greens \u00b7 Stimp 11\u201313","note":"<b>The island par 3.</b> A separate course from Payne's Valley: one hole, for a closest-to-the-pin contest.","type":"Parkland","par":3,"origin":"Real course"},{"group":"Short courses","name":"Mountain Top","gspro":"Mountain Top Golf Course","image":"course-images/s587.jpg","location":"Ridgedale, Missouri","designer":"runpuddrun","yardage":"1,870","plays_like":"Breezy \u00b7 Normal fairways and greens \u00b7 Stimp 12\u201313","note":"13 par 3s at Big Cedar. <b>PurePlay are building this too \u2014 a direct comparison when it ships.</b>","type":"Mountain","par":39,"origin":"Real course"},{"group":"Short courses","name":"Pine Valley (Short)","gspro":"Pine Valley - Short Course","image":"course-images/fly_pinevalleyshort.jpg","location":"Pine Valley, New Jersey","designer":"pakman","yardage":"1,848","plays_like":"","note":"The short course at the club that admits almost nobody.","type":"Parkland","par":30,"origin":"Real course"},{"group":"Short courses","name":"Concrete Jungle Par 3's","gspro":"Concrete Jungle Par 3's","image":"course-images/s1923.jpg","location":"Fictional \u2014 city","designer":"CDrum","yardage":"1,372","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"Par 3s wedged into a city.","type":"","par":54,"origin":"Invented"},{"group":"Short courses","name":"Redwood Run","gspro":"Redwood Run","image":"course-images/s2218.jpg","location":"Fictional","designer":"Carl's Place","yardage":"","plays_like":"","note":"A par-54 short course from Carl's Place, who the SGT regulars rate as the best designers working in GSPro. Get all three of theirs.","type":"","par":54,"origin":"Invented"},{"group":"Short courses","name":"Canyon Run (Par 3)","gspro":"Canyon Run - Par 3","image":"course-images/s3025.jpg","location":"Fictional \u2014 desert","designer":"rdeyer","yardage":"","plays_like":"","note":"Named on the GSPro Discord as the best par 3 in the game.","type":"Desert","par":54,"origin":"Invented"},{"group":"Short courses","name":"Chaos Cove","gspro":"CDrum's Chaos Cove","image":"course-images/s2782.jpg","location":"Fictional","designer":"CDrum","yardage":"2,978","plays_like":"No wind \u00b7 Soft fairways and greens \u00b7 Stimp 10\u201313","note":"2,978 yards of deliberate nonsense. Soft everything \u2014 built for fun, not scoring.","type":"","par":63,"origin":"Invented"},{"group":"Pitch and putt courses","name":"Bedford Springs Miniature Golf","gspro":"Bedford Springs Miniature Golf","image":"course-images/s1892.jpg","location":"Bedford, Pennsylvania","designer":"TLove","yardage":"280","plays_like":"No wind \u00b7 Normal greens \u00b7 Stimp 10\u201313","note":"The putting lawn of a hotel built in 1796. The prettiest in this section.","type":"","par":54,"origin":"Real course"},{"group":"Pitch and putt courses","name":"Fossil Preserve Putt Putt","gspro":"Fossil Preserve - Miniature Golf /Putt Putt","image":"course-images/s2530.jpg","location":"Fictional \u2014 prehistoric","designer":"Triple J","yardage":"18 holes","plays_like":"No wind \u00b7 Normal greens","note":"Dinosaurs. Eighteen holes in a prehistoric world \u2014 this is the one for children.","type":"","par":57,"origin":"Invented"},{"group":"Pitch and putt courses","name":"Jug Mountain Mini 9","gspro":"Jug Mountain Mini 9","image":"course-images/s1630.jpg","location":"McCall, Idaho","designer":"Ptoad","yardage":"9 holes","plays_like":"Breezy \u00b7 Normal fairways \u00b7 Firm greens \u00b7 Stimp 10\u201311","note":"A real short par-3 course beside the practice ground at Jug Mountain Ranch.","type":"Mountain","par":27,"origin":"Real course"},{"group":"Pitch and putt courses","name":"RTJ Sr. Miniature Championship","gspro":"RTJ Sr. Miniature Championship Course","image":"course-images/s3422.jpg","location":"Grosse Pointe, Michigan","designer":"KFG","yardage":"2,774","plays_like":"Calm \u00b7 Normal fairways and greens","note":"Robert Trent Jones Sr built this for the Country Club of Detroit in 1966. The longest in this section.","type":"Parkland","par":58,"origin":"Real course"},{"group":"Pitch and putt courses","name":"Mill Creek Metroparks Putting Course","gspro":"Mill Creek Metroparks Putting Course","image":"course-images/s3022.jpg","location":"Youngstown, Ohio","designer":"Strong Design Studio","yardage":"18 holes","plays_like":"No wind \u00b7 Normal greens \u00b7 Stimp 10\u201311","note":"A free municipal putting course in a city park. <b>Putting only \u2014 the one to point the putting camera at.</b>","type":"","par":54,"origin":"Real course"},{"group":"Pitch and putt courses","name":"Bucks Run Putting Island","gspro":"Bucks Run Putting Island Mini Golf","image":"course-images/g_bucksrunputtingisland_gsp.jpg","location":"Mt Pleasant, Michigan","designer":"JPruitt10","yardage":"429","plays_like":"","note":"An 18-hole natural-grass putting course on an island in a lake. <b>Putting only.</b>","type":"","par":54,"origin":"Real course"},{"group":"Pitch and putt courses","name":"Putt Stroke Mini Golf","gspro":"Putt Stroke - Mini Golf","image":"course-images/g_puttstroke_gsp.jpg","location":"Sarasota, Florida","designer":"Tsquared","yardage":"231","plays_like":"","note":"Synthetic-turf mini golf with fairways, bunkers and rough, so the putter works on every surface.","type":"","par":54,"origin":""},{"group":"Pitch and putt courses","name":"Mulligan's Island Putt Putt (Cave)","gspro":"Mulligan's Island Putt Putt - Cave Course","image":"course-images/s1185.jpg","location":"Cranston, Rhode Island","designer":"JPruitt10","yardage":"244","plays_like":"No wind \u00b7 Normal greens \u00b7 Stimp 10","note":"Putt-putt on an island, through a cave.","type":"","par":54,"origin":"Invented"},{"group":"Pitch and putt courses","name":"Backwoods Chip n Putt","gspro":"Backwoods Chip n Putt","image":"course-images/s2485.jpg","location":"Fictional \u2014 in the woods","designer":"CDrum","yardage":"1,054","plays_like":"No wind \u00b7 Normal fairways \u00b7 Stimp 10\u201312","note":"Short-game practice in the trees. <i>\u201cJust don\u2019t hit Birdie. She\u2019s a good girl.\u201d</i>","type":"","par":54,"origin":"Invented"},{"group":"Pitch and putt courses","name":"Billy Baroo's Chip n' Putt","gspro":"Billy Baroo's Chip n' Putt","image":"course-images/s2042.jpg","location":"Fictional","designer":"Blitzking","yardage":"975","plays_like":"","note":"Named after the putter in <i>Caddyshack</i>.","type":"","par":54,"origin":"Invented"},{"group":"Pitch and putt courses","name":"Day \u2013 Night Chip and Putt","gspro":"Day - Night - Chip and Putt","image":"course-images/s1873.jpg","location":"Indiana","designer":"rdeyer","yardage":"664","plays_like":"","note":"The same layout in daylight and under floodlights \u2014 load whichever matches the room.","type":"","par":54,"origin":"Real course"},{"group":"Pitch and putt courses","name":"Butler Pitch & Putt","gspro":"Butler Pitch & Putt","image":"course-images/s1623.jpg","location":"Austin, Texas","designer":"JROCKAWAY","yardage":"under 100 yd","plays_like":"Normal fairways and greens \u00b7 Stimp 10\u201312","note":"An Austin original since 1949, downtown. The best wedge course in this section.","type":"","par":54,"origin":"Real course"},{"group":"Pitch and putt courses","name":"Twisted Sticks Pitch & Putt","gspro":"Twisted Sticks Pitch & Putt","image":"course-images/s2545.jpg","location":"Newland, North Carolina","designer":"Strong Design Studio","yardage":"1,107","plays_like":"No wind \u00b7 Normal fairways and greens \u00b7 Stimp 10\u201313","note":"A private club \u201clost in time\u201d, built 1874. The short half of the pair.","type":"Mountain","par":54,"origin":"Invented"}];
+
+const TYPE_ORDER = ["Links","Coastal","Parkland","Heathland","Mountain","Desert","Tropical"];
+const ORIGIN_ORDER = ["Real course","Invented"];
+const STOP = new Set(["the","at","of","and","&","no.","no","a"]);
+
+// one line under each opener, so the book says what each section is for
+const GLOSS = {
+  "Championship courses":"Tour venues and the names everybody already knows. Most evenings, start here.",
+  "Great courses":"Real ground, less famous, often the better golf.",
+  "Fantasy courses":"Invented places, kept to one section so you only meet them when you come looking.",
+  "Short courses":"Par 3s and nine-holers \u2014 an hour, not an afternoon.",
+  "Pitch and putt courses":"Putters and wedges. The ones to hand a guest."
+};
+// a ruled break inside one rack, after the nth card of that group
+const TURN = { "Fantasy courses":{ after:5, text:"Those five play as proper golf \u00b7 beyond here, for fun" } };
+
+const esc = s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const slug = s => s.toLowerCase().replace(/&/g," and ").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const norm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u2018\u2019]/g,"'").replace(/[\u2013\u2014]/g,"-");
+
+function initials(name){
+  const words = name.replace(/\(.*?\)/g,"").split(/\s+/)
+    .map(w => w.replace(/[^A-Za-z0-9']/g,""))
+    .filter(w => w && !STOP.has(w.toLowerCase()) && /[A-Za-z]/.test(w[0]));
+  return (words.slice(0,2).map(w => w[0]).join("") || name[0] || "?").toUpperCase();
+}
+
+// "7,239" -> 7,239 yd; "7,239 (Black)" -> 7,239 yd (Black); "18 holes" -> as written
+function yardageHTML(v){
+  if(!v) return "";
+  const m = String(v).match(/^([\d,]+)\s*(\(.+\))?$/);
+  if(!m) return '<span class="yd">' + esc(v) + "</span>";
+  return '<span class="yd">' + esc(m[1]) + " yd</span>" +
+    (m[2] ? '<span class="tee">&nbsp;' + esc(m[2]) + "</span>" : "");
+}
+
+// the card line: par first, then the measure
+function scorecard(c){
+  const bits = [];
+  if(c.par != null && c.par !== "") bits.push('<span class="par">Par ' + esc(c.par) + "</span>");
+  if(c.yardage) bits.push(yardageHTML(c.yardage));
+  return bits.length ? '<p class="scard">' + bits.join('<span class="sep">&middot;</span>') + "</p>" : "";
+}
+
+// groups, in the order the data gives them
+const GROUPS = [];
+for(const c of COURSES) if(!GROUPS.includes(c.group)) GROUPS.push(c.group);
+
+const typeCounts = {}, originCounts = {};
+for(const c of COURSES){
+  if(c.type) typeCounts[c.type] = (typeCounts[c.type] || 0) + 1;
+  if(c.origin) originCounts[c.origin] = (originCounts[c.origin] || 0) + 1;
+}
+const TYPES = TYPE_ORDER.filter(t => typeCounts[t]);
+const ORIGINS = ORIGIN_ORDER.filter(o => originCounts[o]);
+
+// ---- counted from the data, so they cannot drift ----
+const N_PHOTOS = COURSES.filter(c => c.image).length;
+const N_REAL = COURSES.filter(c => c.origin === "Real course").length;
+document.getElementById("colophon-count").textContent =
+  COURSES.length + " entries \u00b7 " + N_PHOTOS + " photographs";
+document.getElementById("dek").innerHTML =
+  COURSES.length + " courses are installed downstairs, " + N_REAL +
+  " of them real courses. <em>Pick one.</em>";
+
+// ---- contents page ----
+document.getElementById("toc").innerHTML = GROUPS.map(g => {
+  const n = COURSES.filter(c => c.group === g).length;
+  return '<li><a href="#' + slug(g) + '" data-group="' + esc(g) + '">' +
+    '<span class="toc-name">' + esc(g) + "</span>" +
+    '<span class="leader"></span>' +
+    '<span class="toc-n">' + n + "</span></a></li>";
+}).join("");
+
+// ---- filter chips: two facets, each multi-select ----
+function chipHTML(facet, value, count, cls){
+  return '<button class="chip' + (cls ? " " + cls : "") + '" type="button" ' +
+    'data-facet="' + facet + '" data-value="' + esc(value) + '" aria-pressed="false">' +
+    esc(value) + "<i>" + count + "</i></button>";
+}
+document.getElementById("chips-type").innerHTML =
+  TYPES.map(t => chipHTML("type", t, typeCounts[t], "")).join("");
+document.getElementById("chips-origin").innerHTML =
+  ORIGINS.map(o => chipHTML("origin", o, originCounts[o], "chip-origin")).join("");
+
+// ---- cards ----
+let shown = 0;
+function card(c){
+  const hasImg = !!c.image;
+  const shot = hasImg
+    ? '<div class="shot"><img src="' + esc(c.image) + '" alt="' + esc(c.name) + '" width="800" height="450" ' +
+      (shown++ < 3 ? 'decoding="async"' : 'loading="lazy" decoding="async"') + "></div>"
+    : '<div class="shot">' + plateHTML(c) + "</div>";
+
+  const tags = [];
+  if(c.type) tags.push('<span class="tag">' + esc(c.type) + "</span>");
+  if(c.origin) tags.push('<span class="tag-origin">' + esc(c.origin) + "</span>");
+
+  const meta = c.location ? '<p class="meta">' + esc(c.location) + "</p>" : "";
+
+  let plays = "";
+  if(c.plays_like){
+    const segs = c.plays_like.split("\u00b7").map(s => s.trim()).filter(Boolean)
+      .map(s => '<span class="seg' + (/^stimp/i.test(s) ? " seg-stimp" : "") + '">' + esc(s) + "</span>").join("");
+    plays = '<div class="plays"><span class="plays-label">Plays like</span>' + segs + "</div>";
+  }
+
+  const foot = [];
+  if(c.gspro && c.gspro !== c.name) foot.push('<span class="alias">Search GSPro for <b>' + esc(c.gspro) + "</b></span>");
+  if(c.designer) foot.push('<span class="by">Built by ' + esc(c.designer) + "</span>");
+
+  return '<article class="course" data-type="' + esc(c.type || "") + '" data-origin="' + esc(c.origin || "") +
+    '" data-i="' + c.i + '">' + shot +
+    '<div class="caption">' +
+      '<div class="head"><h3 class="cname">' + esc(c.name) + "</h3>" +
+        (tags.length ? '<div class="tags">' + tags.join("") + "</div>" : "") + "</div>" +
+      scorecard(c) + meta + plays +
+      (c.note ? '<p class="note">' + c.note + "</p>" : "") +
+      (foot.length ? '<footer class="foot">' + foot.join("") + "</footer>" : "") +
+    "</div></article>";
+}
+
+function plateHTML(c){
+  return '<div class="plate" role="img" aria-label="No photograph of ' + esc(c.name) + '">' +
+    "<b>" + esc(initials(c.name)) + "</b><span>No photograph</span></div>";
+}
+
+COURSES.forEach((c,i) => { c.i = i; c._q = norm([c.name,c.gspro,c.location,c.designer].join(" ")); });
+
+document.getElementById("groups").innerHTML = GROUPS.map(g => {
+  const list = COURSES.filter(c => c.group === g);
+  const turn = TURN[g];
+  let rack = "";
+  list.forEach((c,i) => {
+    rack += card(c);
+    if(turn && i === turn.after - 1)
+      rack += '<p class="turn" data-turn><span>' + esc(turn.text) + "</span></p>";
+  });
+  return '<section class="group" id="' + slug(g) + '" data-group="' + esc(g) + '">' +
+    '<header class="opener"><h2>' + esc(g) + "</h2>" +
+    '<span class="opener-n" data-count>' + list.length + " courses</span></header>" +
+    (GLOSS[g] ? '<p class="gloss">' + esc(GLOSS[g]) + "</p>" : "") +
+    '<div class="rack">' + rack + "</div></section>";
+}).join("") +
+'<div class="void" id="void" hidden><p id="void-msg"></p>' +
+'<button type="button" id="void-clear">Clear all filters</button></div>';
+
+// swap in the drawn plate if a photograph fails to load
+document.querySelectorAll("#groups img").forEach(img => {
+  img.addEventListener("error", () => {
+    const c = COURSES[+img.closest(".course").dataset.i];
+    img.parentElement.innerHTML = plateHTML(c);
+  }, { once:true });
+});
+
+// ---- filtering: AND between facets, OR inside one ----
+const cards = Array.from(document.querySelectorAll(".course"));
+const sections = Array.from(document.querySelectorAll(".group"));
+const turns = Array.from(document.querySelectorAll("[data-turn]"));
+const tocLinks = Array.from(document.querySelectorAll("#toc a"));
+const chips = Array.from(document.querySelectorAll(".chip"));
+const input = document.getElementById("q");
+const statusEl = document.getElementById("status");
+const clearBtn = document.getElementById("clear");
+const voidEl = document.getElementById("void");
+const voidMsg = document.getElementById("void-msg");
+
+const sel = { type:new Set(), origin:new Set() };
+let query = "";
+
+const picked = () => sel.type.size + sel.origin.size;
+const listOf = set => Array.from(set).join(" or ");
+
+function apply(){
+  const q = norm(query.trim());
+  const facets = picked();
+  const active = facets > 0 || !!q;
+  let total = 0;
+
+  for(const card of cards){
+    const c = COURSES[+card.dataset.i];
+    const ok = (!sel.type.size || sel.type.has(c.type)) &&
+               (!sel.origin.size || sel.origin.has(c.origin)) &&
+               (!q || c._q.includes(q));
+    card.hidden = !ok;
+    card.classList.toggle("hit", facets > 0 && ok);
+    card.classList.remove("lead");
+    if(ok) total++;
+  }
+
+  for(const sec of sections){
+    const vis = Array.from(sec.querySelectorAll(".course")).filter(el => !el.hidden);
+    sec.hidden = vis.length === 0;
+    sec.querySelector("[data-count]").textContent =
+      vis.length + (vis.length === 1 ? " course" : " courses");
+    if(vis.length >= 3) vis[0].classList.add("lead");
+  }
+
+  // the break only reads correctly against the whole, unfiltered section
+  for(const t of turns) t.hidden = active;
+
+  const byGroup = {};
+  for(const sec of sections) byGroup[sec.dataset.group] = sec.hidden ? 0 : Array.from(sec.querySelectorAll(".course")).filter(el => !el.hidden).length;
+  for(const a of tocLinks){
+    const n = byGroup[a.dataset.group] || 0;
+    a.querySelector(".toc-n").textContent = n;
+    if(n === 0) a.setAttribute("aria-disabled","true"); else a.removeAttribute("aria-disabled");
+  }
+
+  statusEl.innerHTML = active
+    ? "<b>" + total + "</b> <span class=\"of\">of " + COURSES.length + "</span>"
+    : "<b>" + COURSES.length + "</b> courses";
+  clearBtn.hidden = !active;
+
+  voidEl.hidden = total > 0;
+  if(!total){
+    const parts = [];
+    if(sel.type.size) parts.push(listOf(sel.type).toLowerCase());
+    if(sel.origin.size) parts.push(listOf(sel.origin).toLowerCase());
+    voidMsg.textContent = query.trim()
+      ? "Nothing matches \u201c" + query.trim() + "\u201d" + (parts.length ? " within " + parts.join(" and ") : "") + "."
+      : "Nothing in the library is " + parts.join(" and ") + ".";
+  }
+}
+
+function reset(){
+  sel.type.clear(); sel.origin.clear();
+  query = ""; input.value = "";
+  for(const c of chips) c.setAttribute("aria-pressed","false");
+  apply();
+}
+
+input.addEventListener("input", () => { query = input.value; apply(); });
+for(const chip of chips){
+  chip.addEventListener("click", () => {
+    const set = sel[chip.dataset.facet];
+    const v = chip.dataset.value;
+    if(set.has(v)) set.delete(v); else set.add(v);
+    chip.setAttribute("aria-pressed", String(set.has(v)));
+    apply();
+  });
+}
+clearBtn.addEventListener("click", () => { reset(); input.focus(); });
+document.getElementById("void-clear").addEventListener("click", () => {
+  reset();
+  document.getElementById("contents").scrollIntoView({ block:"start" });
+});
+
+apply();
+
+// ---- the sticky bar's real height feeds scroll-padding, whatever it wraps to ----
+const bar = document.querySelector(".bar");
+const measure = () => document.documentElement.style.setProperty("--bar-h", bar.offsetHeight + "px");
+measure();
+if(window.ResizeObserver) new ResizeObserver(measure).observe(bar);
+else addEventListener("resize", measure, { passive:true });
+
+// ---- jump to contents ----
+const jump = document.getElementById("jump");
+jump.addEventListener("click", () => document.getElementById("contents").scrollIntoView({ block:"start" }));
+let ticking = false;
+addEventListener("scroll", () => {
+  if(ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    jump.classList.toggle("on", scrollY > 700);
+    ticking = false;
+  });
+}, { passive:true });
+
+// ---- printing: every photograph should be on the page before the sheet is made ----
+addEventListener("beforeprint", () => {
+  document.querySelectorAll('#groups img[loading="lazy"]').forEach(img => img.removeAttribute("loading"));
+});
+</script>
+
+</body></html>

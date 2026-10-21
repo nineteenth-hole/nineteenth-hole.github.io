@@ -719,6 +719,12 @@ dialog.cd::backdrop{background:var(--scrim)}
     </section>
     <p class="conj"><span>and</span></p>
     <section class="block">
+      <h3 class="block-h">Known for <em>any of</em></h3>
+      <div class="chips" id="chips-marks" role="group" aria-label="Filter by what the course is known for; any of these"></div>
+      <p class="block-note">GSPro's own words, read from the course files.</p>
+    </section>
+    <p class="conj"><span>and</span></p>
+    <section class="block">
       <h3 class="block-h">Origin <em>any of</em></h3>
       <div class="chips" id="chips-origin" role="group" aria-label="Filter by origin; any of these"></div>
     </section>
@@ -895,11 +901,18 @@ const N_NOTYPE  = count(c => !c.type);
 const N_NOLEN   = count(c => c._len == null);
 const N_NOPAR   = count(c => c._par == null);
 
+// Strongest claim first, so the list reads as a ranking rather than a jumble.
+const MARK_ORDER = ["Major venue", "Tour stop", "Historic", "Kind to beginners"];
 const present = (order, get) => order.filter(v => COURSES.some(c => get(c) === v));
 // two facets. They combine with AND; the values inside one combine with OR.
 const FACETS = [
   { key:"type",   name:"Character", el:"chips-type",   get:c => c.type,
     values:present(TYPE_ORDER, c => c.type) },
+  // A course can be a major venue AND historic, so this facet matches a list
+  // rather than a single value. `multi` tells passes() and the counters that.
+  { key:"marks",  name:"Known for", el:"chips-marks",  get:c => c.marks || [],
+    multi:true,
+    values:MARK_ORDER.filter(v => COURSES.some(c => (c.marks || []).includes(v))) },
   { key:"origin", name:"Origin",    el:"chips-origin", get:c => c.origin,
     values:present(ORIGIN_ORDER, c => c.origin) }
 ];
@@ -1064,7 +1077,9 @@ const tune     = $("tune");
 const jump     = $("jump");
 
 // ---- state ----
-const sel = { type:new Set(), origin:new Set() };
+// Built from FACETS so adding a facet needs one edit, not two. The hardcoded
+// version silently ignored any new facet's chips.
+const sel = Object.fromEntries(FACETS.map(f => [f.key, new Set()]));
 let query = "", sortId = "book", flat = false;
 
 const nSel = () => FACETS.reduce((n,f) => n + sel[f.key].size, 0);
@@ -1075,7 +1090,11 @@ function passes(c, q, skip){
   for(const f of FACETS){
     if(f.key === skip) continue;
     const set = sel[f.key];
-    if(set.size && !set.has(f.get(c))) return false;
+    if(!set.size) continue;
+    if(f.multi){
+      const have = f.get(c);
+      if(!have.some(v => set.has(v))) return false;
+    } else if(!set.has(f.get(c))) return false;
   }
   return !q || c._q.includes(q);
 }
@@ -1212,7 +1231,10 @@ function apply(){
   for(const f of FACETS) for(const chip of f.chips){
     const v = chip.dataset.value;
     let n = 0;
-    for(const c of COURSES) if(f.get(c) === v && passes(c, q, f.key)) n++;
+    for(const c of COURSES){
+      const hit = f.multi ? f.get(c).includes(v) : f.get(c) === v;
+      if(hit && passes(c, q, f.key)) n++;
+    }
     chip.querySelector("i").textContent = n;
     const on = sel[f.key].has(v);
     chip.setAttribute("aria-pressed", String(on));

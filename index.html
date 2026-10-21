@@ -662,6 +662,8 @@ dialog.cd::backdrop{background:var(--scrim)}
 .cd-body h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-feature);line-height:1.1;letter-spacing:var(--track-tight);margin:0}
 .cd-sub{margin:4px 0 0;color:var(--ink-soft);font-size:var(--fs-ui)}
 .cd-desc{font-family:var(--serif);font-size:var(--fs-prose);margin:0;max-width:68ch}
+.cd-by{margin:6px 0 0;font:600 var(--fs-mark)/1.3 var(--sans);letter-spacing:var(--track-mark);
+  text-transform:uppercase;color:var(--ink-soft)}
 .cd h3{margin:0 0 8px;font:600 var(--fs-mark)/1.3 var(--sans);letter-spacing:var(--track-mark);text-transform:uppercase;color:var(--brass)}
 .cd-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;margin:0;background:var(--rule);border:1px solid var(--rule)}
 .cd-facts div{background:var(--card);padding:10px 12px}
@@ -810,7 +812,9 @@ const TURN = { "Fantasy courses":{ after:5, text:"Those five play as proper golf
 // every way the book can be put in order. "book" is the order the data gives,
 // which is most-played first -- named here so it stops being an invisible default.
 const SORTS = [
-  { id:"book",  label:"Most played",        note:"The order the book is kept in." },
+  // Was labelled "Most played", which was not true -- nothing counts plays. It is
+  // our own order, curated by hand, best first within each shelf. Say that.
+  { id:"book",  label:"Best first",         note:"Our order. The ones worth playing first." },
   { id:"name",  label:"Course name",        note:"A to Z." },
   { id:"long",  label:"Longest first",      note:"By the card off the back tees." },
   { id:"short", label:"Shortest first",     note:"By the card off the back tees." },
@@ -1528,6 +1532,22 @@ const ALIAS = { "shinnecock hills golf club":"shinnecock" };
 const TEE_COLOUR = { Black:"#111", Blue:"#2456c9", White:"#f4f4f4", Green:"#2e8b43", Yellow:"#e7c02c",
   Red:"#c8322d", Junior:"#e58a2a", "Par 3":"#8a8a8a" };
 const KW_LABEL = { MajorVenue:"Major venue", TourStop:"Tour stop", BeginnerFriendly:"Beginner friendly", LowPoly:"Low poly" };
+// Our own writing about the real courses, keyed by the name on the card.
+// Preferred over GSPro's own text, which for most courses is either a sentence of
+// club marketing or nothing at all. Kept in a separate file from
+// course-details.json because that one is regenerated from the sim's course
+// folder and would overwrite anything written by hand.
+let NOTES = null;
+function notes(){
+  if(!NOTES) NOTES = fetch("course-notes.json").then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(j => j.descriptions || {})
+    // A missing or broken notes file must not stop a course opening -- the page
+    // falls back to GSPro's description, which is what it did before.
+    .catch(() => ({}));
+  return NOTES;
+}
+let OURS = {};
+
 let DETAILS = null;
 function details(){
   if(!DETAILS) DETAILS = fetch("course-details.json").then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
@@ -1580,9 +1600,12 @@ function detailHTML(c, d){
     "</td><td>" + (t.rating != null ? esc(t.rating) : "&ndash;") + "</td><td>" + (t.slope != null ? esc(t.slope) : "&ndash;") + "</td></tr>").join("");
   const kws = (d.keywords || []).map(k => '<span class="chip-k">' + esc(KW_LABEL[k] || k) + "</span>").join("");
   const alias = c.gspro && c.gspro !== c.name ? " &middot; listed in GSPro as <b>" + esc(c.gspro) + "</b>" : "";
+  const ours = OURS[c.name] || "";
   return (d.photo ? '<img class="cd-photo" src="' + esc(d.photo) + '" alt="' + esc(c.name) + ' in GSPro">' : "") +
     '<div class="cd-body"><div><h2 id="cd-h">' + esc(c.name) + '</h2><p class="cd-sub">' + esc(d.location || c.location || "") + alias + "</p></div>" +
-    (d.description ? '<p class="cd-desc">' + esc(d.description) + "</p>" : "") +
+    (ours
+      ? '<p class="cd-desc">' + esc(ours) + '</p><p class="cd-by">Our note on the real course</p>'
+      : (d.description ? '<p class="cd-desc">' + esc(d.description) + '</p><p class="cd-by">From the GSPro course file</p>' : "")) +
     (kws ? "<div>" + kws + "</div>" : "") +
     '<section><h3>Tees</h3><div class="cd-scroll"><table><thead><tr><th>Tee</th><th>Yards</th><th>Metres</th><th>Rating</th><th>Slope</th></tr></thead><tbody>' +
       teeRows + '</tbody></table></div><p class="cd-note">Each player\'s tee is picked on GSPro\'s Players tab when the round is set up.</p></section>' +
@@ -1603,7 +1626,11 @@ async function openDetails(c, from){
   if(!cdEl.open) cdEl.showModal();
   cdEl.scrollTop = 0;
   let d;
-  try { const m = await details(); const k = (c.gspro || c.name).toLowerCase(); d = m.get(ALIAS[k] || k) || null; }
+  try {
+    const [m, o] = await Promise.all([details(), notes()]);
+    OURS = o;
+    const k = (c.gspro || c.name).toLowerCase(); d = m.get(ALIAS[k] || k) || null;
+  }
   catch(e){ cdIn.innerHTML = '<div class="cd-body"><h2 id="cd-h">' + esc(c.name) + '</h2><p class="cd-desc">The course details could not be loaded.</p></div>'; return; }
   cdIn.innerHTML = detailHTML(c, d);
 }

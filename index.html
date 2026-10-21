@@ -403,7 +403,11 @@ img{display:block}
 .plays-label{flex:none;font-size:var(--fs-mark);letter-spacing:var(--track-mark);
   text-transform:uppercase;color:var(--brass)}
 .seg{font-size:var(--fs-ui);color:var(--ink);line-height:1.3;font-variant-numeric:tabular-nums}
-.seg+.seg{border-left:1px solid var(--rule);padding-left:9px}
+/* The separator belongs to the segment BEFORE it, not the one after. A
+   border-left travels with its own segment, so when the line wrapped the
+   divider landed at the head of the next line with nothing in front of it. */
+.seg:not(:last-child)::after{content:"\00B7";color:var(--rule);padding-left:9px;
+  font-weight:400}
 .seg-stimp{color:var(--brass);font-weight:500;font-variant-numeric:tabular-nums}
 
 .note{font-family:var(--serif);font-size:var(--fs-prose);line-height:1.5;max-width:62ch}
@@ -469,14 +473,14 @@ img{display:block}
   .note{margin-top:13px}
   .foot{gap:4px;padding-top:13px}
 
-  /* Plays like: the label takes a column of its own and the segments stack
-     beside it. Nothing wraps, so no divider can land at the head of a line.
-     One segment reads as a single line, three as a short specification. */
-  .plays{display:grid;grid-template-columns:auto minmax(0,1fr);
-    column-gap:13px;row-gap:4px;align-items:baseline}
-  .plays-label{grid-column:1;grid-row:1}
-  .seg{grid-column:2}
-  .seg+.seg{border-left:0;padding-left:0}
+  /* Narrow: the label sits on its own line and the conditions run beneath it
+     as one wrapped sentence. The segments are inline so the separators stay
+     attached to the words they follow. */
+  .plays{display:block}
+  .plays-label{display:block;margin-bottom:5px}
+  .seg{display:inline}
+  .seg:not(:last-child)::after{content:"\00B7";color:var(--rule);padding-left:7px;
+    padding-right:0}
 }
 
 @media (hover:hover){

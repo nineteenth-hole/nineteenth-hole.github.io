@@ -1724,7 +1724,7 @@ function lead(c, d){
 
   const by = [];
   if(c.gspro && c.gspro !== c.name) by.push("Listed in GSPro as <b>" + esc(c.gspro) + "</b>");
-  if(d && d.designer || c.designer) by.push("Built by " + esc((d && d.designer) || c.designer));
+  if(c.designer || (d && d.designer)) by.push("Built by " + esc(c.designer || (d && d.designer)));
 
   // ours is preferred; GSPro's own line is the fallback, and each says which
   const ours = OURS[c.name] || "";
@@ -1739,8 +1739,13 @@ function lead(c, d){
     '<div class="cv-head">' +
       (kick ? '<p class="cv-kicker">' + kick + "</p>" : "") +
       '<h1 class="cv-name" id="cv-h">' + esc(c.name) + "</h1>" +
-      ((d && d.location) || c.location
-        ? '<p class="cv-where">' + esc((d && d.location) || c.location) + "</p>" : "") +
+      // Our own town, not the course file's. GSPro's location field is whatever
+      // the course's builder typed: it has Turnberry in Ohio, Royal Melbourne in
+      // Illinois and Whistling Straits in "Sheboygan, Wisconsin, Fictional", and
+      // it disagrees with ours on 52 of the 235. Where the card and the page
+      // differ the card is right, and the page said the other thing.
+      (c.location || (d && d.location)
+        ? '<p class="cv-where">' + esc(c.location || (d && d.location)) + "</p>" : "") +
       (marks ? '<p class="marks">' + marks + "</p>" : "") +
       prose +
       (by.length ? '<p class="cv-by">' + by.join('<span class="sep"> &middot; </span>') + "</p>" : "") +

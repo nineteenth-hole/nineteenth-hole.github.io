@@ -1704,7 +1704,9 @@ function holeTable(d){
   let body = d.tees.map(t => line(dot(t.tee) + esc(t.tee), r => r.yd[key(t.tee)])).join("");
   body += line("<b>Par</b>", r => r.par);
   if(h.some(r => r.index)) body += line("Index", r => r.index, true);
-  return '<div class="cd-scroll"><table><thead>' + head + "</thead><tbody>" + body + "</tbody></table></div>";
+  // the box is what keeps eighteen holes of figures inside the page: without it
+  // the table pushes the whole page sideways on a phone
+  return '<div class="cv-scroll"><table><thead>' + head + "</thead><tbody>" + body + "</tbody></table></div>";
 }
 
 // ---- the page itself ----

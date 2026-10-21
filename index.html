@@ -659,7 +659,7 @@ dialog.cd::backdrop{background:var(--scrim)}
 .cd-sub{margin:4px 0 0;color:var(--ink-soft);font-size:var(--fs-ui)}
 .cd-desc{font-family:var(--serif);font-size:var(--fs-prose);margin:0;max-width:68ch}
 .cd h3{margin:0 0 8px;font:600 var(--fs-mark)/1.3 var(--sans);letter-spacing:var(--track-mark);text-transform:uppercase;color:var(--brass)}
-.cd-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;margin:0;background:var(--rule);border:1px solid var(--rule)}
+.cd-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;margin:0;background:var(--rule);border:1px solid var(--rule)}
 .cd-facts div{background:var(--card);padding:10px 12px}
 .cd-facts dt{font-size:var(--fs-mark);letter-spacing:var(--track-mark);text-transform:uppercase;color:var(--ink-soft)}
 .cd-facts dd{margin:3px 0 0;font-size:var(--fs-prose)}
@@ -1564,8 +1564,10 @@ function detailHTML(c, d){
       '<p class="cd-note">The course designer\'s settings. GSPro starts a round with these; Match Settings can change them.</p></section>' +
     "<section><h3>Hole by hole (yards)</h3>" + holeTable(d) + "</section>" +
     '<section><h3>The course file</h3><dl class="cd-facts">' + facts + "</dl></section>" +
-    (d.scorecard_image ? '<section><h3>GSPro\'s scorecard</h3><img class="cd-card" loading="lazy" src="' + esc(d.scorecard_image) +
-      '" alt="GSPro scorecard for ' + esc(c.name) + '"></section>' : "") + "</div>";
+    // GSPro's printed scorecard used to be shown here as a picture. It is every
+    // number the Tees and Hole-by-hole tables above already draw, so it was 45 MB
+    // of duplication. The tables are searchable and read properly on a phone.
+    "</div>";
 }
 
 let cdFrom = null;
